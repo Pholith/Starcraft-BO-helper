@@ -1,0 +1,15 @@
+C:\Users\Vincent Buisset\Documents\Projet\Starcraft-BO-helper\Starcraft-BO-helper\bin\Debug\Starcraft-BO-helper.exe.config
+C:\Users\Vincent Buisset\Documents\Projet\Starcraft-BO-helper\Starcraft-BO-helper\bin\Debug\Starcraft-BO-helper.exe
+C:\Users\Vincent Buisset\Documents\Projet\Starcraft-BO-helper\Starcraft-BO-helper\bin\Debug\Starcraft-BO-helper.pdb
+C:\Users\Vincent Buisset\Documents\Projet\Starcraft-BO-helper\Starcraft-BO-helper\obj\Debug\Starcraft-BO-helper.csprojAssemblyReference.cache
+C:\Users\Vincent Buisset\Documents\Projet\Starcraft-BO-helper\Starcraft-BO-helper\obj\Debug\MainWindow.g.cs
+C:\Users\Vincent Buisset\Documents\Projet\Starcraft-BO-helper\Starcraft-BO-helper\obj\Debug\App.g.cs
+C:\Users\Vincent Buisset\Documents\Projet\Starcraft-BO-helper\Starcraft-BO-helper\obj\Debug\Starcraft-BO-helper_MarkupCompile.cache
+C:\Users\Vincent Buisset\Documents\Projet\Starcraft-BO-helper\Starcraft-BO-helper\obj\Debug\Starcraft-BO-helper_MarkupCompile.lref
+C:\Users\Vincent Buisset\Documents\Projet\Starcraft-BO-helper\Starcraft-BO-helper\obj\Debug\MainWindow.baml
+C:\Users\Vincent Buisset\Documents\Projet\Starcraft-BO-helper\Starcraft-BO-helper\obj\Debug\Starcraft-BO-helper.g.resources
+C:\Users\Vincent Buisset\Documents\Projet\Starcraft-BO-helper\Starcraft-BO-helper\obj\Debug\Starcraft_BO_helper.Properties.Resources.resources
+C:\Users\Vincent Buisset\Documents\Projet\Starcraft-BO-helper\Starcraft-BO-helper\obj\Debug\Starcraft-BO-helper.csproj.GenerateResource.cache
+C:\Users\Vincent Buisset\Documents\Projet\Starcraft-BO-helper\Starcraft-BO-helper\obj\Debug\Starcraft-BO-helper.csproj.CoreCompileInputs.cache
+C:\Users\Vincent Buisset\Documents\Projet\Starcraft-BO-helper\Starcraft-BO-helper\obj\Debug\Starcraft-BO-helper.exe
+C:\Users\Vincent Buisset\Documents\Projet\Starcraft-BO-helper\Starcraft-BO-helper\obj\Debug\Starcraft-BO-helper.pdb
