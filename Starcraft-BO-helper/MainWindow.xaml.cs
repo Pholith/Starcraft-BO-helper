@@ -15,16 +15,13 @@ using System.Windows.Shapes;
 
 namespace Starcraft_BO_helper
 {
-    /// <summary>
-    /// Logique d'interaction pour MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
         }
-
+  
         private void selectMenu(object sender, RoutedEventArgs e)
         {
 
@@ -32,7 +29,16 @@ namespace Starcraft_BO_helper
 
         private void addBo(object sender, RoutedEventArgs e)
         {
-            BuildOrder.readBO();
+            BuildOrder buildedBO = BuildOrder.createBO(BoInput.Text);
+            if (buildedBO != null)
+            {
+                BuildOrder.saveBO(buildedBO);
+                labelAddBO.Content = "BO saved to \"" + buildedBO.toPath() +"\"";
+            } else
+            {
+                labelAddBO.Content = "BO has wrong format";
+            }
         }
+
     }
 }
