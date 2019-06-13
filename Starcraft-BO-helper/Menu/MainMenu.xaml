@@ -1,0 +1,15 @@
+﻿<Page x:Name="SelectPage" x:Class="Starcraft_BO_helper.MainMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Starcraft_BO_helper"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="377" Width="594" Background="#FF2B2B2B">
+    <StackPanel Margin="0">
+        <Button x:Name="selectButton" Content="Select" HorizontalAlignment="Center" Margin="0,100,0,0" Height="35.96" Width="106.624" Background="#FF5D5D5D" Foreground="White" Click="selectMenu" FontSize="16" BorderBrush="Black"/>
+        <Button x:Name="___Button___" Content="Paste BO Format to save a BO" Background="#FF636363" Foreground="White" HorizontalAlignment="Center" Height="21" Margin="0,50,0,0" Width="230" Click="addBo" BorderBrush="Black"/>
+        <TextBox x:Name="BoInput" Height="25" Margin="0" TextWrapping="Wrap" Background="#FF636363" Foreground="White" BorderBrush="Black" HorizontalAlignment="Center" Width="135.626" VerticalContentAlignment="Center" AcceptsReturn="True"/>
+        <Label x:Name="labelAddBO" Content="" Height="26" Margin="0" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="208.994" Foreground="White"/>
+    </StackPanel>
+</Page>

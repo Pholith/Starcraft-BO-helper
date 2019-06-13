@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Starcraft_BO_helper
 {
-    class BuildOrder
+    public class BuildOrder
     {
 
         public String name { get; }
@@ -22,7 +22,7 @@ namespace Starcraft_BO_helper
 
 
         // A BuildOrder represent a sequence of action at a exact time
-        public BuildOrder(String name, String race, List<Action> listOfAction)
+        BuildOrder(String name, String race, List<Action> listOfAction)
         {
             race = race.clearWhiteSpace();
             // Throw ArgumentException if race string is not valide
@@ -73,7 +73,7 @@ namespace Starcraft_BO_helper
                 }
                 trueBO = new BuildOrder(lines[0], lines[1], actions);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
@@ -86,7 +86,7 @@ namespace Starcraft_BO_helper
             string path = bingPathToAppDir(pathSrc);
             if (!File.Exists(path))
             {
-                Console.WriteLine("No file found");
+                Console.WriteLine("No file found.");
                 return;
             }
 

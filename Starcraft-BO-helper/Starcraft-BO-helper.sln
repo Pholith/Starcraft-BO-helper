@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Blend for Visual Studio 15
-VisualStudioVersion = 15.0.28307.645
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Starcraft-BO-helper", "Starcraft-BO-helper.csproj", "{DBE3ED84-9842-4CB8-848E-304C816B0A99}"
 EndProject
@@ -25,6 +25,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {E2091188-1FCE-475C-B33E-2AE12F066415}
+		SolutionGuid = {DC70E388-BBD4-47C9-8369-89D2F05E04FA}
 	EndGlobalSection
 EndGlobal

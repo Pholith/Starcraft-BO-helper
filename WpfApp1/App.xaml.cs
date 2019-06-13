@@ -6,19 +6,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Starcraft_BO_helper
+namespace WpfApp1
 {
     /// <summary>
     /// Logique d'interaction pour App.xaml
     /// </summary>
     public partial class App : Application
     {
-        // Entry point method
-        [STAThread]
-        public static void main()
-        {
-            App app = new App();
-            app.Run();
-        }
     }
 }
