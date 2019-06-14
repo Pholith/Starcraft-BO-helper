@@ -77,7 +77,7 @@ namespace Starcraft_BO_helper
 
         private void backMenu(object sender, RoutedEventArgs e)
         {
-
+            Switcher.switchPage(new MainMenu());
         }
     }
 }

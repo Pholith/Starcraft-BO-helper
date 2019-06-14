@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Starcraft_BO_helper
 {
-    public class Database
+    public class Db
     {
 
         // Template of a Singleton
-        private static Database _instance;
+        private static Db _instance;
         static readonly object instanceLock = new object();
 
-        public static Database instance
+        public static Db instance
         {
             get
             {
@@ -22,7 +22,7 @@ namespace Starcraft_BO_helper
                     lock (instanceLock)
                     {
                         if (_instance == null)
-                            _instance = new Database();
+                            _instance = new Db();
                     }
                 }
                 return _instance;
@@ -30,12 +30,9 @@ namespace Starcraft_BO_helper
         }
         // End template of a Singleton
 
-        private Database()
+        private Db()
         {
 
         }
-
-
     }
-
 }

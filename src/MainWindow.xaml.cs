@@ -23,7 +23,6 @@ namespace Starcraft_BO_helper
     {
 
         private MainMenu mainMenu;
-        private Select selectMenu;
 
         public MainWindow()
         {
@@ -32,7 +31,6 @@ namespace Starcraft_BO_helper
 
             // initialize the others windows
             mainMenu = new MainMenu();
-            selectMenu = new Select();
 
             //page switcher and initial page   
             Switcher.pageSwitcher = this;

@@ -24,5 +24,10 @@ namespace Starcraft_BO_helper
         {
             InitializeComponent();
         }
+
+        private void backSelectMenu(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

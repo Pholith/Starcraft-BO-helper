@@ -1,4 +1,4 @@
-﻿<Page x:Name="SelectPage" x:Class="Starcraft_BO_helper.Select"
+﻿<Page x:Name="selectPage" x:Class="Starcraft_BO_helper.Select"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
       mc:Ignorable="d"
       Title="Select" Background="#FF474747" Height="564" Width="960">
 
-    <DockPanel x:Name="dockPanel" Height="{Binding WindowHeight, ElementName=SelectPage}" LastChildFill="False" Width="{Binding WindowHeight, ElementName=SelectPage}">
+    <DockPanel x:Name="dockPanel" Height="{Binding WindowHeight, ElementName=SelectPage}" LastChildFill="False" Width="{Binding WindowHeight, ElementName=SelectPage}" Background="#FF252526">
         <TabPanel x:Name="tabPanel" Width="259" Margin="5,10,0,10" HorizontalAlignment="Left" Height="{Binding ActualHeight, ElementName=dockPanel}">
             <TabControl x:Name="tabControl" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0,0,0,-2" RenderTransformOrigin="0.5,0.5" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" HorizontalAlignment="Left" Height="{Binding ActualHeight, ElementName=tabPanel}">
                 <TabControl.RenderTransform>
@@ -59,8 +59,8 @@
         <Canvas x:Name="canvas" Margin="-28.5,10,10,10" DockPanel.Dock="Top" VerticalAlignment="Top" Height="544">
             <StackPanel Margin="0" Canvas.Top="155.5" Height="241" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=canvas}">
 
-                <Button Content="Play" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45.94" Margin="0,30,0,0" Width="135.44" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="playSelected"/>
-                <Button Content="Delete" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45.94" Margin="0,40,0,0" Width="135.44" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="deleteSelected"/>
+                <Button Content="Play" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45.94" Margin="0,30,0,0" Width="135.44" Background="#FF1D1D1D" Foreground="White" BorderBrush="Black" Click="playSelected"/>
+                <Button Content="Delete" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45.94" Margin="0,40,0,0" Width="135.44" Background="#FF1D1D1D" Foreground="White" BorderBrush="Black" Click="deleteSelected"/>
             </StackPanel>
             <Button Content="🡄" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Height="42.94" Width="46.94" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="backMenu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Canvas>
