@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Starcraft_BO_helper
 {
     // Action of a bo
-    class Action
+    internal class Action
     {
         private TimeSpan time;
         private String action;

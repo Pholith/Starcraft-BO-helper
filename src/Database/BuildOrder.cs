@@ -11,15 +11,9 @@ namespace Starcraft_BO_helper
     public class BuildOrder
     {
 
-        public String name { get; }
-        private String race;
-        private List<Action> listOfAction;
-
-        /* to use later
-  * https://docs.microsoft.com/fr-fr/dotnet/api/system.diagnostics.stopwatch?view=netframework-4.8q
- Stopwatch stopWatch = new Stopwatch();
- stopWatch.Start();*/
-
+        public String name { get; private set; }
+        private readonly String race;
+        internal List<Action> listOfAction { get; private set; }
 
         // A BuildOrder represent a sequence of action at a exact time
         BuildOrder(String name, String race, List<Action> listOfAction)
@@ -35,7 +29,6 @@ namespace Starcraft_BO_helper
             this.listOfAction = listOfAction;
 
         }
-
         // Transform a local path into a True local Path
         private static string fixPathToRelative(string localPath)
         {

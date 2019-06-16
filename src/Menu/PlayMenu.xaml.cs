@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,14 +21,21 @@ namespace Starcraft_BO_helper
     /// </summary>
     public partial class PlayMenu : Page
     {
+
+
         public PlayMenu()
         {
-            InitializeComponent();
+            InitializeComponent(/*BuildOrder bo*/);
+
+            // Starting stopwatch
+
+            //BuildOrderReader reader = new BuildOrderReader(bo);
+
         }
 
         private void backSelectMenu(object sender, RoutedEventArgs e)
         {
-
+            Switcher.switchPage(new Select());
         }
     }
 }
