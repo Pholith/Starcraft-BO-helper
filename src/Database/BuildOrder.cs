@@ -43,7 +43,7 @@ namespace Starcraft_BO_helper
         {
 
             HashSet<BuildOrder> set = new HashSet<BuildOrder>();
-            foreach (string file in Directory.EnumerateFiles( fixPathToRelative("src/saves_bo/"), "*.bo"))
+            foreach (string file in Directory.EnumerateFiles(fixPathToRelative("src/saves_bo/"), "*.bo"))
             {
                 set.Add(readBO(file));
             }
@@ -53,7 +53,7 @@ namespace Starcraft_BO_helper
         // Remove a BO from the file system
         internal static void deleteBO(BuildOrder selectedItem)
         {
-            File.Delete(fixPathToRelative(selectedItem.toPath()));
+            File.Delete(fixPathToRelative(selectedItem.ToPath()));
         }
 
         // create a object BO from it string format
@@ -116,7 +116,8 @@ namespace Starcraft_BO_helper
                     else if (counter == 1)
                     {
                         race = ln;
-                    } else
+                    }
+                    else
                     {
                         // Pass if the line is empty
                         if (string.IsNullOrWhiteSpace(ln))
@@ -140,7 +141,7 @@ namespace Starcraft_BO_helper
         // Save a BO file
         public static void saveBO(BuildOrder bo)
         {
-            string path = fixPathToRelative(bo.toPath());
+            string path = fixPathToRelative(bo.ToPath());
             using (StreamWriter file = new StreamWriter(path))
             {
                 file.Write(bo.toFormat());
@@ -185,7 +186,7 @@ namespace Starcraft_BO_helper
             return builder.ToString();
         }
         // Return the relative path of the BO save
-        public string toPath()
+        public string ToPath()
         {
             return string.Concat("saves_bo/", name, ".bo");
         }
@@ -200,5 +201,5 @@ namespace Starcraft_BO_helper
         public static readonly string[] Races = { Protoss, Terran, Zerg };
     }
 
-    
+
 }

@@ -7,7 +7,7 @@
       mc:Ignorable="d"
       Title="PlayMenu" Background="#FF1D1D1D" Height="484.64" Width="950.668">
     <StackPanel x:Name="stackPanel" Width="{Binding ActualWidth, ElementName=page}" Height="{Binding ActualHeight, ElementName=page}" d:IsLocked="True">
-        <Button Content="🡄" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Height="42.94" Width="46.94" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="backSelectMenu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,10,0,0" d:IsLocked="True"/>
+        <Button Content="🡄" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Height="42.94" Width="46.94" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="BackSelectMenu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,10,0,0" d:IsLocked="True"/>
         <DockPanel x:Name="stackPanel1" LastChildFill="False" d:IsLocked="True" >
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="100,0,0,0" d:IsLocked="True">
                 <Label x:Name="previousLabel" Content="Previous" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Width="259.834" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White" d:IsLocked="True"/>

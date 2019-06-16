@@ -62,7 +62,7 @@
                 <Button Content="Play" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45.94" Margin="0,30,0,0" Width="135.44" Background="#FF1D1D1D" Foreground="White" BorderBrush="Black" Click="playSelected"/>
                 <Button Content="Delete" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45.94" Margin="0,40,0,0" Width="135.44" Background="#FF1D1D1D" Foreground="White" BorderBrush="Black" Click="deleteSelected"/>
             </StackPanel>
-            <Button Content="🡄" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Height="42.94" Width="46.94" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="backMenu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Button Content="🡄" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Height="42.94" Width="46.94" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="BackMenu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Canvas>
     </DockPanel>
 </Page>

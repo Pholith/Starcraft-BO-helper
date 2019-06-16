@@ -28,13 +28,13 @@ namespace Starcraft_BO_helper
             Switcher.switchPage(selectPage);
         }
 
-        private void addBo(object sender, RoutedEventArgs e)
+        private void AddBo(object sender, RoutedEventArgs e)
         {
             BuildOrder buildedBO = BuildOrder.createBO(BoInput.Text);
             if (buildedBO != null)
             {
                 BuildOrder.saveBO(buildedBO);
-                labelAddBO.Content = "BO saved to \"" + buildedBO.toPath() +"\"";
+                labelAddBO.Content = "BO saved to \"" + buildedBO.ToPath() +"\"";
             } else
             {
                 labelAddBO.Content = "BO has wrong format";

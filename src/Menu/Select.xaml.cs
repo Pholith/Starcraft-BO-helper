@@ -52,7 +52,7 @@ namespace Starcraft_BO_helper
 
         private void playSelected(object sender, RoutedEventArgs e)
         {
-            Switcher.switchPage(new PlayMenu());
+            Switcher.switchPage(new PlayMenu((BuildOrder) getSelectedList().SelectedItem));
         }
 
         private void deleteSelected(object sender, RoutedEventArgs e)
@@ -75,7 +75,7 @@ namespace Starcraft_BO_helper
             return (ListBox) tabControl.SelectedContent;
         }
 
-        private void backMenu(object sender, RoutedEventArgs e)
+        private void BackMenu(object sender, RoutedEventArgs e)
         {
             Switcher.switchPage(new MainMenu());
         }

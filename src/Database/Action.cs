@@ -10,10 +10,10 @@ namespace Starcraft_BO_helper
     // Action of a bo
     internal class Action
     {
-        private TimeSpan time;
-        private String action;
-        private int atTime;
-        private String atTimeAction;
+        private readonly TimeSpan time;
+        private readonly String action;
+        private readonly int atTime;
+        private readonly String atTimeAction;
 
         public Action(TimeSpan time, string action, int atTime, String atTimeAction)
         {

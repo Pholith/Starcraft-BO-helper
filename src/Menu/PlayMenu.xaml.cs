@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Starcraft_BO_helper
 {
@@ -23,17 +24,17 @@ namespace Starcraft_BO_helper
     {
 
 
-        public PlayMenu()
+        public PlayMenu(BuildOrder bo)
         {
             InitializeComponent(/*BuildOrder bo*/);
 
             // Starting stopwatch
 
-            //BuildOrderReader reader = new BuildOrderReader(bo);
+            BuildOrderReader reader = new BuildOrderReader(bo, timerLabel);
 
         }
 
-        private void backSelectMenu(object sender, RoutedEventArgs e)
+        private void BackSelectMenu(object sender, RoutedEventArgs e)
         {
             Switcher.switchPage(new Select());
         }
