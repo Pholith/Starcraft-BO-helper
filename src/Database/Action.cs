@@ -37,7 +37,6 @@ namespace Starcraft_BO_helper
         {
             return new Action(new TimeSpan(), "", 0, "");
         }
-
         // Parse a line with a action
         public static Action ReadActionLine(String line)
         {
@@ -73,6 +72,16 @@ namespace Starcraft_BO_helper
             }
 
             return string.Format(toFormat, time.ToString(@"mm\:ss"), action);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var action = obj as Action;
+            return action != null &&
+                   time.Equals(action.time) &&
+                   this.action == action.action &&
+                   atTime == action.atTime &&
+                   atTimeAction == action.atTimeAction;
         }
     }
 }

@@ -111,16 +111,24 @@ namespace Starcraft_BO_helper
             timerLabel.Content = currentValue.ToString(@"mm\:ss\:ff");
 
             // Calculate the actions
-            List<Action> actions = bo.ListOfAction;
-            actions.RemoveAll(delegate (Action ac)
+            List<Action> rawList = bo.ListOfAction;
+            rawList.RemoveAll(delegate (Action ac)
             {
                 return ac.IsPassed(currentValue);
             });
-            if (actions.Count() < 2)
+            IEnumerable<Action> actions = rawList.Skip(1);
+            if (actions.Count() < 0)
             {
+                if (NextAction.ActionName() == "")
+                {
+                    return;
+                }
+                PreviousAction = CurrentAction;
+                CurrentAction = NextAction;
+                NextAction = Action.Zero();
                 return;
             }
-            var a = actions.Skip(1).First();
+            var a = actions.First();
             if (a == null || a == NextAction)
             {
                 return;
