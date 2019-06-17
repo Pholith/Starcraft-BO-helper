@@ -13,7 +13,7 @@ namespace Starcraft_BO_helper
         private static Db _instance;
         static readonly object instanceLock = new object();
 
-        public static Db instance
+        public static Db Instance
         {
             get
             {

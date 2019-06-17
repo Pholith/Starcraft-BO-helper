@@ -6,28 +6,28 @@
       xmlns:local="clr-namespace:Starcraft_BO_helper"
       mc:Ignorable="d"
       Title="PlayMenu" Background="#FF1D1D1D" Height="484.64" Width="950.668">
-    <StackPanel x:Name="stackPanel" Width="{Binding ActualWidth, ElementName=page}" Height="{Binding ActualHeight, ElementName=page}" d:IsLocked="True">
-        <Button Content="🡄" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Height="42.94" Width="46.94" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="BackSelectMenu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,10,0,0" d:IsLocked="True"/>
-        <DockPanel x:Name="stackPanel1" LastChildFill="False" d:IsLocked="True" >
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="100,0,0,0" d:IsLocked="True">
-                <Label x:Name="previousLabel" Content="Previous" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Width="259.834" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White" d:IsLocked="True"/>
-                <Border BorderBrush="Black" BorderThickness="3" Height="60" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="259.834" d:IsLocked="True">
-                    <Label FontSize="24" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="" Margin="0" d:IsLocked="True"/>
+    <StackPanel x:Name="stackPanel" Width="{Binding ActualWidth, ElementName=page}" Height="{Binding ActualHeight, ElementName=page}">
+        <Button Content="🡄" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Height="42.94" Width="46.94" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="BackSelectMenu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,10,0,0"/>
+        <DockPanel x:Name="stackPanel1" LastChildFill="False" >
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="100,0,0,0">
+                <Label Content="Previous" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Width="259.834" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White"/>
+                <Border BorderBrush="Black" BorderThickness="3" Height="60" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="259.834">
+                    <Label x:Name="previousLabel" FontSize="24" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0"/>
                 </Border>
             </StackPanel>
-            <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,100,0" d:IsLocked="True">
-                <Label x:Name="nextLabel" Content="Next" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Width="259.834" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White" d:IsLocked="True"/>
-                <Border BorderBrush="Black" BorderThickness="3" Height="60" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="259.834" d:IsLocked="True">
-                    <Label FontSize="24" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="" Margin="0" d:IsLocked="True"/>
+            <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,100,0">
+                <Label Content="Next" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Width="259.834" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White"/>
+                <Border BorderBrush="Black" BorderThickness="3" Height="60" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="259.834">
+                    <Label x:Name="nextLabel" FontSize="24" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="" Margin="0"/>
                 </Border>
             </StackPanel>
         </DockPanel>
-        <Border BorderBrush="Black" BorderThickness="3" Height="90" Margin="0,20,0,0" HorizontalAlignment="Center" Width="220.834" VerticalAlignment="Center" d:IsLocked="True">
-            <Label x:Name="timerLabel" FontSize="24" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="" Margin="0" d:IsLocked="True"/>
+        <Border BorderBrush="Black" BorderThickness="3" Height="90" Margin="0,20,0,0" HorizontalAlignment="Center" Width="220.834" VerticalAlignment="Center">
+            <Label x:Name="timerLabel" FontSize="36" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="" Margin="0"/>
         </Border>
-        <Label Content="Actual" Margin="0,30,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" d:IsLocked="True"/>
-        <Border BorderBrush="Black" BorderThickness="3" Height="90" Margin="0,1,0,0" HorizontalAlignment="Center" Width="406.834" VerticalAlignment="Center" d:IsLocked="True">
-            <Label x:Name="actualLabel" FontSize="24" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="" Margin="0" d:IsLocked="True"/>
+        <Label Content="Actual" Margin="0,30,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Border BorderBrush="Black" BorderThickness="3" Height="90" Margin="0,1,0,0" HorizontalAlignment="Center" Width="406.834" VerticalAlignment="Center">
+            <Label x:Name="actualLabel" FontSize="24" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="" Margin="0"/>
         </Border>
     </StackPanel>
 </Page>

@@ -25,7 +25,7 @@
                             <GradientStop Color="#FF727272" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
-                    <ListBox x:Name="allList" Width="219" Margin="0,1,0,20" Background="#FF7C7C7C" BorderBrush="#FF272727" MinHeight="400" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="{Binding ActualHeight, ElementName=tabControl}" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                    <ListBox x:Name="allList" Width="219" Margin="0,1,0,20" Background="#FF7C7C7C" BorderBrush="#FF272727" MinHeight="400" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="{Binding ActualHeight, ElementName=tabControl}" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="UpdateSelection"/>
                 </TabItem>
                 <TabItem x:Name="zergTab" Header="Zerg" BorderBrush="#FF363636" Margin="20.5,0,-38,0" FontSize="14">
                     <TabItem.Background>
@@ -34,7 +34,7 @@
                             <GradientStop Color="#FF727272" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
-                    <ListBox x:Name="zergList" Width="219" Margin="0,1,0,20" Background="#FF7C7C7C" BorderBrush="#FF272727" MinHeight="400" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="{Binding ActualHeight, ElementName=tabControl}" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                    <ListBox x:Name="zergList" Width="219" Margin="0,1,0,20" Background="#FF7C7C7C" BorderBrush="#FF272727" MinHeight="400" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="{Binding ActualHeight, ElementName=tabControl}" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="UpdateSelection"/>
                 </TabItem>
                 <TabItem x:Name="terranTab" Header="Terran" Margin="36.5,0,-42.5,0" BorderBrush="#FF363636" FontSize="14" >
                     <TabItem.Background>
@@ -43,7 +43,7 @@
                             <GradientStop Color="#FF727272" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
-                    <ListBox x:Name="terranList" Width="219" Margin="0,1,0,20" Background="#FF7C7C7C" BorderBrush="#FF272727" MinHeight="400" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="{Binding ActualHeight, ElementName=tabControl}" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                    <ListBox x:Name="terranList" Width="219" Margin="0,1,0,20" Background="#FF7C7C7C" BorderBrush="#FF272727" MinHeight="400" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="{Binding ActualHeight, ElementName=tabControl}" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="UpdateSelection"/>
                 </TabItem>
                 <TabItem x:Name="protossTab" Header="Protoss" Margin="41,0,-45,0" BorderBrush="#FF363636" FontSize="14">
                     <TabItem.Background>
@@ -52,15 +52,15 @@
                             <GradientStop Color="#FF727272" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
-                    <ListBox x:Name="protossList" Width="219" Margin="0,1,0,20" Background="#FF7C7C7C" BorderBrush="#FF272727" MinHeight="400" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="{Binding ActualHeight, ElementName=tabControl}" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                    <ListBox x:Name="protossList" Width="219" Margin="0,1,0,20" Background="#FF7C7C7C" BorderBrush="#FF272727" MinHeight="400" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Height="{Binding ActualHeight, ElementName=tabControl}" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="UpdateSelection"/>
                 </TabItem>
             </TabControl>
         </TabPanel>
         <Canvas x:Name="canvas" Margin="-28.5,10,10,10" DockPanel.Dock="Top" VerticalAlignment="Top" Height="544">
             <StackPanel Margin="0" Canvas.Top="155.5" Height="241" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=canvas}">
 
-                <Button Content="Play" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45.94" Margin="0,30,0,0" Width="135.44" Background="#FF1D1D1D" Foreground="White" BorderBrush="Black" Click="playSelected"/>
-                <Button Content="Delete" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45.94" Margin="0,40,0,0" Width="135.44" Background="#FF1D1D1D" Foreground="White" BorderBrush="Black" Click="deleteSelected"/>
+                <Button x:Name="playButton" Content="Play" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45.94" Margin="0,30,0,0" Width="135.44" Background="#FFBBBBBB" Foreground="Black" BorderBrush="Black" Click="PlaySelected" IsEnabled="False"/>
+                <Button x:Name="deleteButton" Content="Delete" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45.94" Margin="0,40,0,0" Width="135.44" Background="#FFBBBBBB" Foreground="Black" BorderBrush="Black" Click="DeleteSelected" IsEnabled="False"/>
             </StackPanel>
             <Button Content="🡄" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" Height="42.94" Width="46.94" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="BackMenu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Canvas>

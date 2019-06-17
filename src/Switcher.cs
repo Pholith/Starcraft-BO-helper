@@ -14,9 +14,9 @@ namespace Starcraft_BO_helper
         public static MainWindow pageSwitcher;
 
         // Change the content of the MainWindow to show a other page
-        public static void switchPage(Page newPage)
+        public static void SwitchPage(Page newPage)
         {
-            pageSwitcher.navigate(newPage);
+            pageSwitcher.Navigate(newPage);
         }
     }
 

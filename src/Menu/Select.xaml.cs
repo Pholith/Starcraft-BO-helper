@@ -24,7 +24,7 @@ namespace Starcraft_BO_helper
         public Select()
         {
             InitializeComponent();
-            var boList = BuildOrder.readAllBO();
+            var boList = BuildOrder.ReadAllBO();
 
             // Global list
             foreach (var bo in boList)
@@ -35,32 +35,32 @@ namespace Starcraft_BO_helper
             // RaceList
             foreach (var bo in boList)
             {
-                if (bo.isTerran())
+                if (bo.IsTerran())
                 {
                     terranList.Items.Add(bo);
                 }
-                if (bo.isZerg())
+                if (bo.IsZerg())
                 {
                     zergList.Items.Add(bo);
                 }
-                if (bo.isProtoss())
+                if (bo.IsProtoss())
                 {
                     protossList.Items.Add(bo);
                 }
             }
         }
 
-        private void playSelected(object sender, RoutedEventArgs e)
+        private void PlaySelected(object sender, RoutedEventArgs e)
         {
-            Switcher.switchPage(new PlayMenu((BuildOrder) getSelectedList().SelectedItem));
+            Switcher.SwitchPage(new PlayMenu((BuildOrder) GetSelectedList().SelectedItem));
         }
 
-        private void deleteSelected(object sender, RoutedEventArgs e)
+        private void DeleteSelected(object sender, RoutedEventArgs e)
         {
-            BuildOrder selectedItem = (BuildOrder) getSelectedList().SelectedItem;
+            BuildOrder selectedItem = (BuildOrder) GetSelectedList().SelectedItem;
             if (selectedItem != null)
             {
-                BuildOrder.deleteBO(selectedItem);
+                BuildOrder.DeleteBO(selectedItem);
 
                 // Remove element from lists
                 allList.Items.Remove(selectedItem);
@@ -70,14 +70,27 @@ namespace Starcraft_BO_helper
             }
         }
 
-        private ListBox getSelectedList()
+        private ListBox GetSelectedList()
         {
             return (ListBox) tabControl.SelectedContent;
         }
 
         private void BackMenu(object sender, RoutedEventArgs e)
         {
-            Switcher.switchPage(new MainMenu());
+            Switcher.SwitchPage(new MainMenu());
+        }
+
+        private void UpdateSelection(object sender, SelectionChangedEventArgs e)
+        {
+            if (GetSelectedList().SelectedItem == null)
+            {
+                playButton.IsEnabled = false;
+                deleteButton.IsEnabled = false;
+                return;
+            }
+            playButton.IsEnabled = true;
+            deleteButton.IsEnabled = true;
+
         }
     }
 }

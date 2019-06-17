@@ -7,7 +7,7 @@ namespace Starcraft_BO_helper
     public static class StringExtension
     {
         // Return cleared string of whiteSpace not including single space
-        public static String clearWhiteSpace(this String str)
+        public static String ClearWhiteSpace(this String str)
         {
             return Regex.Replace(str, @"^\s+|\s+$|\s+(?=\s)", "");
         }

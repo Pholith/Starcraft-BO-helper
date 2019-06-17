@@ -34,12 +34,12 @@ namespace Starcraft_BO_helper
 
             //page switcher and initial page   
             Switcher.pageSwitcher = this;
-            Switcher.switchPage(mainMenu);  
+            Switcher.SwitchPage(mainMenu);  
         }
 
 
         // method called by the static Switcher to navigate between pages in this window
-        internal void navigate(Page newPage)
+        internal void Navigate(Page newPage)
         {
             Content = newPage.Content;
         }

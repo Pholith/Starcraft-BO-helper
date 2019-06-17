@@ -21,19 +21,19 @@ namespace Starcraft_BO_helper
         {
             InitializeComponent();
         }
-        private void selectMenu(object sender, RoutedEventArgs e)
+        private void SelectMenu(object sender, RoutedEventArgs e)
         {
             
             Select selectPage = new Select();
-            Switcher.switchPage(selectPage);
+            Switcher.SwitchPage(selectPage);
         }
 
         private void AddBo(object sender, RoutedEventArgs e)
         {
-            BuildOrder buildedBO = BuildOrder.createBO(BoInput.Text);
+            BuildOrder buildedBO = BuildOrder.CreateBO(BoInput.Text);
             if (buildedBO != null)
             {
-                BuildOrder.saveBO(buildedBO);
+                BuildOrder.SaveBO(buildedBO);
                 labelAddBO.Content = "BO saved to \"" + buildedBO.ToPath() +"\"";
             } else
             {

@@ -3,34 +3,32 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Starcraft_BO_helper
 {
     public class BuildOrder
     {
 
-        public String name { get; private set; }
-        private readonly String race;
-        internal List<Action> listOfAction { get; private set; }
+        public string Name { get; private set; }
+        private readonly string race;
+        internal List<Action> ListOfAction { get; private set; }
 
         // A BuildOrder represent a sequence of action at a exact time
-        BuildOrder(String name, String race, List<Action> listOfAction)
+        private BuildOrder(string name, string race, List<Action> listOfAction)
         {
-            race = race.clearWhiteSpace();
+            race = race.ClearWhiteSpace();
             // Throw ArgumentException if race string is not valide
             if (!Race.Races.Contains(race.ToLower()))
             {
                 throw new ArgumentException("Can't Parse the BO. Don't reconnizing the race.");
             }
             this.race = race;
-            this.name = name.clearWhiteSpace();
-            this.listOfAction = listOfAction;
+            this.Name = name.ClearWhiteSpace();
+            ListOfAction = listOfAction;
 
         }
         // Transform a local path into a True local Path
-        private static string fixPathToRelative(string localPath)
+        private static string FixPathToRelative(string localPath)
         {
             string currentDir = Environment.CurrentDirectory;
             DirectoryInfo directory = new DirectoryInfo(
@@ -39,42 +37,42 @@ namespace Starcraft_BO_helper
         }
 
         // Read All bo file in the ressource dir "save_bo/"
-        public static HashSet<BuildOrder> readAllBO()
+        public static HashSet<BuildOrder> ReadAllBO()
         {
 
             HashSet<BuildOrder> set = new HashSet<BuildOrder>();
-            foreach (string file in Directory.EnumerateFiles(fixPathToRelative("src/saves_bo/"), "*.bo"))
+            foreach (string file in Directory.EnumerateFiles(FixPathToRelative("src/saves_bo/"), "*.bo"))
             {
-                set.Add(readBO(file));
+                set.Add(ReadBO(file));
             }
             return set;
         }
 
         // Remove a BO from the file system
-        internal static void deleteBO(BuildOrder selectedItem)
+        internal static void DeleteBO(BuildOrder selectedItem)
         {
-            File.Delete(fixPathToRelative(selectedItem.ToPath()));
+            File.Delete(FixPathToRelative(selectedItem.ToPath()));
         }
 
         // create a object BO from it string format
         // Return null if bad format
-        public static BuildOrder createBO(String bo)
+        public static BuildOrder CreateBO(string bo)
         {
             BuildOrder trueBO;
             try
             {
-                var lines = bo.Split('\n');
-                var actionLines = lines.Skip(2);
-                var actions = new List<Action>();
+                string[] lines = bo.Split('\n');
+                IEnumerable<string> actionLines = lines.Skip(2);
+                List<Action> actions = new List<Action>();
 
-                foreach (var actionLine in actionLines)
+                foreach (string actionLine in actionLines)
                 {
                     // Pass if the line is empty
                     if (string.IsNullOrWhiteSpace(actionLine))
                     {
                         continue;
                     }
-                    actions.Add(Action.readActionLine(actionLine));
+                    actions.Add(Action.ReadActionLine(actionLine));
                 }
                 trueBO = new BuildOrder(lines[0], lines[1], actions);
             }
@@ -86,7 +84,7 @@ namespace Starcraft_BO_helper
         }
 
         // Read a BO file
-        public static BuildOrder readBO(string pathSrc)
+        public static BuildOrder ReadBO(string pathSrc)
         {
             if (!File.Exists(pathSrc))
             {
@@ -101,8 +99,8 @@ namespace Starcraft_BO_helper
                 int counter = 0;
                 string ln;
 
-                String race = null;
-                String name = null;
+                string race = null;
+                string name = null;
                 List<Action> actions = new List<Action>();
 
 
@@ -124,7 +122,7 @@ namespace Starcraft_BO_helper
                         {
                             continue;
                         }
-                        actions.Add(Action.readActionLine(ln));
+                        actions.Add(Action.ReadActionLine(ln));
                     }
                     counter++;
                 }
@@ -139,22 +137,22 @@ namespace Starcraft_BO_helper
         }
 
         // Save a BO file
-        public static void saveBO(BuildOrder bo)
+        public static void SaveBO(BuildOrder bo)
         {
-            string path = fixPathToRelative(bo.ToPath());
+            string path = FixPathToRelative(bo.ToPath());
             using (StreamWriter file = new StreamWriter(path))
             {
-                file.Write(bo.toFormat());
+                file.Write(bo.ToFormat());
             }
         }
 
         // Return the BO with string format
-        public string toFormat()
+        public string ToFormat()
         {
             StringBuilder builder = new StringBuilder();
-            builder.Append(name).AppendLine();
+            builder.Append(Name).AppendLine();
             builder.Append(race).AppendLine();
-            foreach (var action in listOfAction)
+            foreach (Action action in ListOfAction)
             {
                 builder.Append(action).AppendLine();
             }
@@ -162,17 +160,17 @@ namespace Starcraft_BO_helper
             return builder.ToString();
         }
 
-        public Boolean isTerran()
+        public bool IsTerran()
         {
             return race.ToLower() == Race.Terran;
         }
 
-        public Boolean isZerg()
+        public bool IsZerg()
         {
             return race.ToLower() == Race.Zerg;
         }
 
-        public Boolean isProtoss()
+        public bool IsProtoss()
         {
             return race.ToLower() == Race.Protoss;
         }
@@ -181,19 +179,19 @@ namespace Starcraft_BO_helper
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(race).Append(": ");
-            builder.Append(name);
+            builder.Append(Name);
 
             return builder.ToString();
         }
         // Return the relative path of the BO save
         public string ToPath()
         {
-            return string.Concat("saves_bo/", name, ".bo");
+            return string.Concat("src/saves_bo/", Name, ".bo");
         }
     }
 
     // Enum for race
-    static class Race
+    internal static class Race
     {
         public const string Protoss = "protoss";
         public const string Terran = "terran";

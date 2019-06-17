@@ -30,13 +30,13 @@ namespace Starcraft_BO_helper
 
             // Starting stopwatch
 
-            BuildOrderReader reader = new BuildOrderReader(bo, timerLabel);
+            BuildOrderReader reader = new BuildOrderReader(bo, timerLabel, previousLabel, actualLabel, nextLabel);
 
         }
 
         private void BackSelectMenu(object sender, RoutedEventArgs e)
         {
-            Switcher.switchPage(new Select());
+            Switcher.SwitchPage(new Select());
         }
     }
 }
