@@ -19,8 +19,8 @@ namespace Starcraft_BO_helper
 
 
         // TO REFACTOR
-
-        private Action previousAction = Action.Zero();
+        // Do not use the fields, you must change the value using the private setter
+        private Action previousAction;
         public Action PreviousAction
         {
             get
@@ -31,11 +31,11 @@ namespace Starcraft_BO_helper
             {
                 if (previousAction == value)
                     return;
-                OnPropertyChanged(0, previousAction);
                 previousAction = value;
+                OnPropertyChanged(0, previousAction);
             }
         }
-        private Action currentAction = Action.Zero();
+        private Action currentAction;
         public Action CurrentAction
         {
             get
@@ -46,11 +46,11 @@ namespace Starcraft_BO_helper
             {
                 if (currentAction == value)
                     return;
-                OnPropertyChanged(1, currentAction);
                 currentAction = value;
+                OnPropertyChanged(1, currentAction);
             }
         }
-        private Action nextAction = Action.Zero();
+        private Action nextAction;
         public Action NextAction
         {
             get
@@ -61,8 +61,9 @@ namespace Starcraft_BO_helper
             {
                 if (nextAction == value)
                     return;
-                OnPropertyChanged(2, nextAction);
+                Console.WriteLine(nextAction);
                 nextAction = value;
+                OnPropertyChanged(2, nextAction);
             }
         }
 
@@ -70,7 +71,8 @@ namespace Starcraft_BO_helper
         private void OnPropertyChanged(int i, Action newAction)
         {
             actionsOnLabels[i] = newAction;
-            labels[i].Content = newAction.ActionName();
+            labels[i].Content = newAction.ToString();
+            Console.WriteLine(labels[i].Content);
         }
 
         private List<Label> labels;
@@ -81,6 +83,7 @@ namespace Starcraft_BO_helper
             this.bo = bo;
             this.timerLabel = timerLabel;
 
+            // Initialize labels and actions lists
             labels = new List<Label>();
             labels.Add(previousLabel);
             labels.Add(currentLabel);
@@ -91,6 +94,11 @@ namespace Starcraft_BO_helper
             actionsOnLabels.Add(CurrentAction);
             actionsOnLabels.Add(NextAction);
 
+
+            //Initialise list
+            listOfActions = bo.ListOfAction;
+            NextAction = listOfActions[0];
+            listOfActions.Remove(NextAction);
 
             //// Time setup
             this.TimerStart = DateTime.Now;
@@ -112,14 +120,6 @@ namespace Starcraft_BO_helper
             var currentValue = DateTime.Now - this.TimerStart;
             timerLabel.Content = currentValue.ToString(@"mm\:ss\:ff");
 
-            // Initialize list
-            if (listOfActions == null)
-            {
-                listOfActions = bo.ListOfAction;
-                NextAction = listOfActions[0];
-                listOfActions.Remove(NextAction);
-            }
-
             if (NextAction.IsPassed(currentValue))
             {
                 return;
@@ -131,7 +131,6 @@ namespace Starcraft_BO_helper
             if (listOfActions.Count() == 0)
             {
                 a = Action.Infinite();
-                //labels[2].Content = "";
             }
             // 1 action or more
             else
@@ -139,8 +138,7 @@ namespace Starcraft_BO_helper
                 a = listOfActions[0];
             }
 
-            Console.WriteLine(NextAction.ActionName());
-
+            // update actions
             PreviousAction = CurrentAction;
             CurrentAction = NextAction;
             NextAction = a;
