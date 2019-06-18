@@ -71,7 +71,6 @@ namespace Starcraft_BO_helper
         {
             actionsOnLabels[i] = newAction;
             labels[i].Content = newAction.ActionName();
-
         }
 
         private List<Label> labels;
@@ -92,7 +91,7 @@ namespace Starcraft_BO_helper
             actionsOnLabels.Add(CurrentAction);
             actionsOnLabels.Add(NextAction);
 
-            NextAction = bo.ListOfAction[0];
+
             //// Time setup
             this.TimerStart = DateTime.Now;
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
@@ -103,6 +102,9 @@ namespace Starcraft_BO_helper
 
         }
 
+
+        private List<Action> listOfActions;
+
         // EventHandler tick
         private void OnDispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -110,34 +112,40 @@ namespace Starcraft_BO_helper
             var currentValue = DateTime.Now - this.TimerStart;
             timerLabel.Content = currentValue.ToString(@"mm\:ss\:ff");
 
-            // Calculate the actions
-            List<Action> rawList = bo.ListOfAction;
-            rawList.RemoveAll(delegate (Action ac)
+            // Initialize list
+            if (listOfActions == null)
             {
-                return ac.IsPassed(currentValue);
-            });
-            IEnumerable<Action> actions = rawList.Skip(1);
-            if (actions.Count() < 0)
-            {
-                if (NextAction.ActionName() == "")
-                {
-                    return;
-                }
-                PreviousAction = CurrentAction;
-                CurrentAction = NextAction;
-                NextAction = Action.Zero();
-                return;
+                listOfActions = bo.ListOfAction;
+                NextAction = listOfActions[0];
+                listOfActions.Remove(NextAction);
             }
-            var a = actions.First();
-            if (a == null || a == NextAction)
+
+            if (NextAction.IsPassed(currentValue))
             {
                 return;
             }
+
+            Action a;
+
+            // No actions
+            if (listOfActions.Count() == 0)
+            {
+                a = Action.Infinite();
+                //labels[2].Content = "";
+            }
+            // 1 action or more
+            else
+            {
+                a = listOfActions[0];
+            }
+
+            Console.WriteLine(NextAction.ActionName());
+
             PreviousAction = CurrentAction;
             CurrentAction = NextAction;
             NextAction = a;
 
+            listOfActions.Remove(a);
         }
-
     }
 }

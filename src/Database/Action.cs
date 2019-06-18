@@ -37,6 +37,11 @@ namespace Starcraft_BO_helper
         {
             return new Action(new TimeSpan(), "", 0, "");
         }
+        public static Action Infinite()
+        {
+            return new Action(TimeSpan.MaxValue, "", 0, "");
+        }
+
         // Parse a line with a action
         public static Action ReadActionLine(String line)
         {
@@ -60,7 +65,7 @@ namespace Starcraft_BO_helper
         // Return true if the time of the action is lower than the time in parameters
         public Boolean IsPassed(TimeSpan currentTime)
         {
-            return currentTime.TotalMilliseconds > time.TotalMilliseconds;
+            return currentTime.TotalMilliseconds < time.TotalMilliseconds;
         }
 
         public override string ToString()
@@ -72,6 +77,17 @@ namespace Starcraft_BO_helper
             }
 
             return string.Format(toFormat, time.ToString(@"mm\:ss"), action);
+        }
+
+
+        public override int GetHashCode()
+        {
+            var hashCode = -949174417;
+            hashCode = hashCode * -1521134295 + EqualityComparer<TimeSpan>.Default.GetHashCode(time);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(action);
+            hashCode = hashCode * -1521134295 + atTime.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(atTimeAction);
+            return hashCode;
         }
 
         public override bool Equals(object obj)
