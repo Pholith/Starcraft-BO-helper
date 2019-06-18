@@ -75,8 +75,12 @@ namespace Starcraft_BO_helper
             {
                 toFormat = string.Concat(toFormat, string.Format(" @{0}% {1}", atTime, atTimeAction));
             }
-
-            return string.Format(toFormat, time.ToString(@"mm\:ss"), action);
+            var toStringTime = time.ToString(@"mm\:ss");
+            if (time == TimeSpan.MaxValue)
+            {
+                toStringTime = "";
+            }
+            return string.Format(toFormat, toStringTime, action);
         }
 
 

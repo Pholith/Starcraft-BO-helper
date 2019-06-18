@@ -72,7 +72,6 @@ namespace Starcraft_BO_helper
         {
             actionsOnLabels[i] = newAction;
             labels[i].Content = newAction.ToString();
-            Console.WriteLine(labels[i].Content);
         }
 
         private List<Label> labels;
