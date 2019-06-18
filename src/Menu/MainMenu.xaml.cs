@@ -23,9 +23,7 @@ namespace Starcraft_BO_helper
         }
         private void SelectMenu(object sender, RoutedEventArgs e)
         {
-            
-            Select selectPage = new Select();
-            Switcher.SwitchPage(selectPage);
+            Switcher.SwitchPage(new Select());
         }
 
         private void AddBo(object sender, RoutedEventArgs e)
@@ -41,5 +39,9 @@ namespace Starcraft_BO_helper
             }
         }
 
+        private void SettingsButton(object sender, RoutedEventArgs e)
+        {
+            Switcher.SwitchPage(new Settings());
+        }
     }
 }
