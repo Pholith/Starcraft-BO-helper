@@ -91,7 +91,7 @@ namespace Starcraft_BO_helper
         {
             List<string> probsName = new List<string>
             {
-                "CSV",
+                "SCV",
                 "Probe",
                 "Prob",
                 "Drone"
