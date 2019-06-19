@@ -34,7 +34,18 @@ namespace Starcraft_BO_helper
 
         private void KeyPressed(object sender, KeyEventArgs e)
         {
-            if (!keyPressed.Contains(e.Key))
+
+            var keyPressedCopy = keyPressed;
+            // Remove all key that are Alphanumeric
+            keyPressedCopy.RemoveAll(k =>
+                (k >= Key.A && k <= Key.Z) || (k >= Key.D0 && k <= Key.D9) || (k >= Key.NumPad0 && k <= Key.NumPad9));
+
+            
+            if (keyPressedCopy.Count() > 1)
+            {
+                // Don't add the Key
+            }
+            else if (!keyPressed.Contains(e.Key))
             {
                 keyPressed.Add(e.Key);
             }
@@ -43,17 +54,18 @@ namespace Starcraft_BO_helper
 
         private void KeyUnpressed(object sender, KeyEventArgs e)
         {
-            keyPressed.Remove(e.Key);
+            Db.Instance.skipKey = keyPressed;
             UpdateTextBox();
         }
 
         private void UpdateTextBox()
         {
+            // ToString
             string str = "";
             for (int i = 0; i < keyPressed.Count(); i++)
             {
                 str += keyPressed[i].ToString();
-                if (! (i == keyPressed.Count() - 1))
+                if (!(i == keyPressed.Count() - 1))
                 {
                     str += "+";
                 }
@@ -66,10 +78,29 @@ namespace Starcraft_BO_helper
             UpdateTextBox();
 
         }
-
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        private void TextBox_GotFocus(object sender, MouseEventArgs e)
         {
             keyPressed.Clear();
+            UpdateTextBox();
+        }
+
+        private void OnlySkipModeChecked(object sender, RoutedEventArgs e)
+        {
+            Db.Instance.onlySkipMode = true;
+        }
+
+        private void OnlySkipModeUnchecked(object sender, RoutedEventArgs e)
+        {
+            Db.Instance.onlySkipMode = false;
+        }
+
+        private new void Loaded(object sender, RoutedEventArgs e)
+        {
+            // Loadt the textBox
+            keyPressed = Db.Instance.skipKey;
+            UpdateTextBox();
+
+            onlySkipModeCheckbox.IsChecked = Db.Instance.onlySkipMode;
         }
     }
 }

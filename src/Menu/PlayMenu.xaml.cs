@@ -23,20 +23,37 @@ namespace Starcraft_BO_helper
     public partial class PlayMenu : Page
     {
 
+        private BuildOrderReader reader;
 
         public PlayMenu(BuildOrder bo)
         {
-            InitializeComponent(/*BuildOrder bo*/);
+            InitializeComponent();
 
-            // Starting stopwatch
-
-            BuildOrderReader reader = new BuildOrderReader(bo, timerLabel, previousLabel, actualLabel, nextLabel);
-
+            reader = new BuildOrderReader(bo, timerLabel, previousLabel, actualLabel, nextLabel);
         }
 
+        // Back Button
         private void BackSelectMenu(object sender, RoutedEventArgs e)
         {
             Switcher.SwitchPage(new Select());
+        }
+
+        private void KeyPressed(object sender, KeyEventArgs e)
+        {
+            reader.SkipAction(true);
+        }
+
+        // Bind the Key handlers at loading the page
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("UserControl_Loaded");
+            Switcher.window.KeyDown += KeyPressed;
+        }
+        // UnBind the Key handlers at unloading the page (switching page)
+        private void Unload(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("UserControl_Unloaded");
+            Switcher.window.KeyDown -= KeyPressed;
         }
     }
 }

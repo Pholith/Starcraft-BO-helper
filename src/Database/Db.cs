@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Starcraft_BO_helper
 {
@@ -30,9 +31,14 @@ namespace Starcraft_BO_helper
         }
         // End template of a Singleton
 
+        public List<Key> skipKey = new List<Key>();
+        public bool onlySkipMode = false;
+
+
         private Db()
         {
 
         }
+
     }
 }

@@ -50,6 +50,7 @@ namespace Starcraft_BO_helper
                 OnPropertyChanged(1, currentAction);
             }
         }
+
         private Action nextAction;
         public Action NextAction
         {
@@ -74,8 +75,8 @@ namespace Starcraft_BO_helper
             labels[i].Content = newAction.ToString();
         }
 
-        private List<Label> labels;
-        private List<Action> actionsOnLabels;
+        private readonly List<Label> labels;
+        private readonly List<Action> actionsOnLabels;
 
         public BuildOrderReader(BuildOrder bo, Label timerLabel, Label previousLabel, Label currentLabel, Label nextLabel)
         {
@@ -83,15 +84,19 @@ namespace Starcraft_BO_helper
             this.timerLabel = timerLabel;
 
             // Initialize labels and actions lists
-            labels = new List<Label>();
-            labels.Add(previousLabel);
-            labels.Add(currentLabel);
-            labels.Add(nextLabel);
+            labels = new List<Label>
+            {
+                previousLabel,
+                currentLabel,
+                nextLabel
+            };
 
-            actionsOnLabels = new List<Action>();
-            actionsOnLabels.Add(PreviousAction);
-            actionsOnLabels.Add(CurrentAction);
-            actionsOnLabels.Add(NextAction);
+            actionsOnLabels = new List<Action>
+            {
+                PreviousAction,
+                CurrentAction,
+                NextAction
+            };
 
 
             //Initialise list
@@ -111,19 +116,22 @@ namespace Starcraft_BO_helper
 
 
         private List<Action> listOfActions;
-
+        private TimeSpan currentValue;
         // EventHandler tick
         private void OnDispatcherTimer_Tick(object sender, EventArgs e)
         {
             // Update the timer label
-            var currentValue = DateTime.Now - this.TimerStart;
+            currentValue = DateTime.Now - this.TimerStart;
             timerLabel.Content = currentValue.ToString(@"mm\:ss\:ff");
 
-            if (NextAction.IsPassed(currentValue))
-            {
-                return;
-            }
-
+           if (NextAction.IsPassed(currentValue))
+           {
+               return;
+           }
+           SkipAction(false);
+        }
+        public void SkipAction(bool forced)
+        {
             Action a;
 
             // No actions
@@ -132,7 +140,7 @@ namespace Starcraft_BO_helper
                 a = Action.Infinite();
             }
             // 1 action or more
-            else
+            else 
             {
                 a = listOfActions[0];
             }

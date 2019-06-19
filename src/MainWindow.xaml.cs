@@ -33,7 +33,7 @@ namespace Starcraft_BO_helper
             mainMenu = new MainMenu();
 
             //page switcher and initial page   
-            Switcher.pageSwitcher = this;
+            Switcher.window = this;
             Switcher.SwitchPage(mainMenu);  
         }
 
