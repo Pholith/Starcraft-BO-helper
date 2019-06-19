@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace Starcraft_BO_helper
 {
@@ -10,7 +12,10 @@ namespace Starcraft_BO_helper
     {
 
         public string Name { get; private set; }
-        private readonly string race;
+        private string type;
+        private string matchup;
+        private string description;
+        private string race;
 
         private List<Action> listOfAction;
         internal List<Action> ListOfAction
@@ -29,19 +34,29 @@ namespace Starcraft_BO_helper
         }
 
         // A BuildOrder represent a sequence of action at a exact time
-        private BuildOrder(string name, string race, List<Action> listOfAction)
+        private BuildOrder(string name, string type, string matchup, string description, List<Action> listOfAction)
         {
-            race = race.ClearWhiteSpace();
             // Throw ArgumentException if race string is not valide
+            string[] temp = Regex.Split(matchup, @"[^\S\r\n]*([ZTPX])V[ZTPX][^\S\r\n]*", RegexOptions.IgnoreCase);
+            if (temp.Count() < 1)
+            {
+                throw new ArgumentException("Can't Parse the BO. Matchup field is required.");
+            }
+            race = temp[1];
             if (!Race.Races.Contains(race.ToLower()))
             {
                 throw new ArgumentException("Can't Parse the BO. Don't reconnizing the race.");
             }
-            this.race = race;
-            this.Name = name.ClearWhiteSpace();
-            this.listOfAction = listOfAction;
 
+
+            Name = name.ClearWhiteSpace();
+            this.type = type.ClearWhiteSpace();
+            this.matchup = matchup.ClearWhiteSpace();
+            this.description = description.ClearWhiteSpace();
+
+            this.listOfAction = listOfAction;
         }
+
         // Transform a local path into a True local Path
         private static string FixPathToRelative(string localPath)
         {
@@ -54,7 +69,6 @@ namespace Starcraft_BO_helper
         // Read All bo file in the ressource dir "save_bo/"
         public static HashSet<BuildOrder> ReadAllBO()
         {
-
             HashSet<BuildOrder> set = new HashSet<BuildOrder>();
             foreach (string file in Directory.EnumerateFiles(FixPathToRelative("src/saves_bo/"), "*.bo"))
             {
@@ -71,32 +85,65 @@ namespace Starcraft_BO_helper
 
         // create a object BO from it string format
         // Return null if bad format
-        public static BuildOrder CreateBO(string bo)
+        public static BuildOrder CreateBO(string boStr, string name)
         {
-            BuildOrder trueBO;
+            BuildOrder bo;
             try
             {
-                string[] lines = bo.Split('\n');
-                IEnumerable<string> actionLines = lines.Skip(2);
-                List<Action> actions = new List<Action>();
+                string[] lines = Regex.Split(boStr, "(?:\r\n)");
 
-                foreach (string actionLine in actionLines)
+                bool actionLines = false;
+                Dictionary<string, string> metaData = new Dictionary<string, string>
                 {
-                    // Pass if the line is empty
-                    if (string.IsNullOrWhiteSpace(actionLine))
+                    { "name", name },
+                    { "type", "" },
+                    { "description", "" },
+                    { "matchup", "" }
+                };
+                List<Action> actionList = new List<Action>();
+
+                foreach (var line in lines)
+                {
+                    // Match these tags without a specific order
+                    var splitedLine = Regex.Split(line, @"^(?=.*(Name|Type|Description|Matchup)\:(.*))(?:.*|\r)", RegexOptions.IgnoreCase);
+
+                    // Check if the line is a action line
+                    if (Regex.Split(line, @"^[^\S\r\n]*(\d{1,3}){0,1}[^\S\r\n]*(\d{1,2}:\d{1,2})[^\S\r\n]*([^@\n\r]*)[^\S\r\n]*(?:(@\d{1,3}% {0,1}.*)|(?:.*))").Count() > 2)
                     {
-                        continue;
+                        actionLines = true;
                     }
-                    actions.Add(Action.ReadActionLine(actionLine));
+                    
+
+                    if (!actionLines)
+                    {
+                        if (splitedLine.Count() < 2)
+                        {
+                            break;
+                        }
+
+                        var meta = splitedLine[1].ToLower();
+                        if (metaData.Keys.Contains(meta))
+                        {
+                            metaData[meta] = splitedLine[2];
+                        } 
+                    }
+                    else
+                    {
+                        var action = Action.ReadActionLine(line);
+                        if (action != null)
+                        {
+                            actionList.Add(action);
+                        };
+                    }
                 }
-                trueBO = new BuildOrder(lines[0], lines[1], actions);
+                bo = new BuildOrder(metaData["name"], metaData["type"], metaData["matchup"], metaData["description"], actionList);
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error during creation of BO. " + e.ToString());
                 return null;
             }
-            return trueBO;
+            return bo;
         }
 
         // Read a BO file
@@ -107,49 +154,10 @@ namespace Starcraft_BO_helper
                 Console.WriteLine("No file found.");
                 return null;
             }
+            string str = File.ReadAllText(pathSrc);
+            string name = Path.GetFileNameWithoutExtension(pathSrc);
 
-            BuildOrder bo;
-            // Read file using StreamReader. Reads file line by line  
-            using (StreamReader file = new StreamReader(pathSrc))
-            {
-                int counter = 0;
-                string ln;
-
-                string race = null;
-                string name = null;
-                List<Action> actions = new List<Action>();
-
-
-                // Reading line by line
-                while ((ln = file.ReadLine()) != null)
-                {
-                    if (counter == 0)
-                    {
-                        name = ln;
-                    }
-                    else if (counter == 1)
-                    {
-                        race = ln;
-                    }
-                    else
-                    {
-                        // Pass if the line is empty
-                        if (string.IsNullOrWhiteSpace(ln))
-                        {
-                            continue;
-                        }
-                        actions.Add(Action.ReadActionLine(ln));
-                    }
-                    counter++;
-                }
-                name = Path.GetFileNameWithoutExtension(pathSrc);
-                bo = new BuildOrder(name, race, actions);
-
-                file.Close();
-                Console.WriteLine($"File has {counter} lines.");
-            }
-            return bo;
-
+            return CreateBO(str, name);
         }
 
         // Save a BO file
@@ -209,11 +217,10 @@ namespace Starcraft_BO_helper
     // Enum for race
     internal static class Race
     {
-        public const string Protoss = "protoss";
-        public const string Terran = "terran";
-        public const string Zerg = "zerg";
+        public const string Protoss = "p";
+        public const string Terran = "t";
+        public const string Zerg = "z";
         public static readonly string[] Races = { Protoss, Terran, Zerg };
+
     }
-
-
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Starcraft_BO_helper
 {
@@ -57,8 +58,13 @@ namespace Starcraft_BO_helper
         // Parse a line with a action
         public static Action ReadActionLine(String line)
         {
+            if (line.Count() < 1)
+            {
+                return null;
+            }
             /// Split lines like "0:49 Assimilator @100% gaz" or  "11 0:26 Drone x2"
             string[] splited = Regex.Split(line, @"^[^\S\r\n]*(\d{1,3}){0,1}[^\S\r\n]*(\d{1,2}:\d{1,2})[^\S\r\n]*([^@\n\r]*)[^\S\r\n]*(?:(@\d{1,3}% {0,1}.*)|(?:.*))");
+
 
             TimeSpan time = TimeSpan.ParseExact(PreFormatTime(splited[2]), "mm\\:ss" ,CultureInfo.InvariantCulture);
 
@@ -128,7 +134,7 @@ namespace Starcraft_BO_helper
 
         public override bool Equals(object obj)
         {
-            var action = obj as Action;
+            Action action = obj as Action;
             return action != null &&
                    time.Equals(action.time) &&
                    this.action == action.action &&

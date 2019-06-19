@@ -78,14 +78,14 @@ namespace Starcraft_BO_helper
             labels[i].Content = newAction.ToString();
         }
 
-        private DoubleAnimation fontSizeAnimation;
-        private ColorAnimation colorAnimation;
+        private readonly DoubleAnimation fontSizeAnimation;
+        private readonly ColorAnimation colorAnimation;
 
         private readonly Page page;
         private readonly List<Label> labels;
         private readonly List<Action> actionsOnLabels;
 
-        private List<Action> listOfActions;
+        private readonly List<Action> listOfActions;
         private TimeSpan currentValue;
 
         public BuildOrderReader(BuildOrder bo, Page page, Label timerLabel, Label titleLabel, Label previousLabel, Label currentLabel, Label nextLabel)
@@ -115,7 +115,7 @@ namespace Starcraft_BO_helper
             NextAction = listOfActions[0];
             listOfActions.Remove(NextAction);
 
-            //// Time setup
+            // Time setup
             this.TimerStart = DateTime.Now;
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(OnDispatcherTimer_Tick);
@@ -123,9 +123,9 @@ namespace Starcraft_BO_helper
             dispatcherTimer.Start();
             
             // Animation on timer label
-            colorAnimation = new ColorAnimation(Colors.White, Colors.Red, TimeSpan.FromMilliseconds(600));
+            colorAnimation = new ColorAnimation(Colors.White, Colors.Red, TimeSpan.FromMilliseconds(800));
             colorAnimation.AutoReverse = true;
-            fontSizeAnimation = new DoubleAnimation(timerLabel.FontSize, timerLabel.FontSize + 6, TimeSpan.FromMilliseconds(600));
+            fontSizeAnimation = new DoubleAnimation(timerLabel.FontSize, timerLabel.FontSize + 10, TimeSpan.FromMilliseconds(800));
             fontSizeAnimation.AutoReverse = true;
         }
 

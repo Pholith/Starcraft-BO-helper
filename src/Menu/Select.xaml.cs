@@ -29,23 +29,30 @@ namespace Starcraft_BO_helper
             // Global list
             foreach (var bo in boList)
             {
-                this.allList.Items.Add(bo);
+                if (bo != null)
+                {
+                    this.allList.Items.Add(bo);
+                }
             }
 
             // RaceList
             foreach (var bo in boList)
             {
-                if (bo.IsTerran())
+                if (bo != null)
                 {
-                    terranList.Items.Add(bo);
-                }
-                if (bo.IsZerg())
-                {
-                    zergList.Items.Add(bo);
-                }
-                if (bo.IsProtoss())
-                {
-                    protossList.Items.Add(bo);
+
+                    if (bo.IsTerran())
+                    {
+                        terranList.Items.Add(bo);
+                    }
+                    if (bo.IsZerg())
+                    {
+                        zergList.Items.Add(bo);
+                    }
+                    if (bo.IsProtoss())
+                    {
+                        protossList.Items.Add(bo);
+                    }
                 }
             }
         }

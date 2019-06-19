@@ -28,7 +28,7 @@ namespace Starcraft_BO_helper
 
         private void AddBo(object sender, RoutedEventArgs e)
         {
-            BuildOrder buildedBO = BuildOrder.CreateBO(BoInput.Text);
+            BuildOrder buildedBO = BuildOrder.CreateBO(BoInput.Text, "");
             if (buildedBO != null)
             {
                 BuildOrder.SaveBO(buildedBO);
