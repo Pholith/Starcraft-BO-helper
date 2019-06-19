@@ -30,6 +30,18 @@ namespace Starcraft_BO_helper
             Switcher.SwitchPage(new MainMenu());
         }
 
+        private new void Loaded(object sender, RoutedEventArgs e)
+        {
+            // Load the textBox
+            keyPressed = Db.Instance.skipKey;
+            UpdateTextBox();
+
+            // Load the checkbox 
+            onlySkipModeCheckbox.IsChecked = Db.Instance.onlySkipMode;
+            showWorkersCheckbox.IsChecked = Db.Instance.showWorkers;
+        }
+
+
         private List<Key> keyPressed = new List<Key>();
 
         private void KeyPressed(object sender, KeyEventArgs e)
@@ -88,19 +100,18 @@ namespace Starcraft_BO_helper
         {
             Db.Instance.onlySkipMode = true;
         }
-
         private void OnlySkipModeUnchecked(object sender, RoutedEventArgs e)
         {
             Db.Instance.onlySkipMode = false;
         }
-
-        private new void Loaded(object sender, RoutedEventArgs e)
+        private void ShowWorkersChecked(object sender, RoutedEventArgs e)
         {
-            // Loadt the textBox
-            keyPressed = Db.Instance.skipKey;
-            UpdateTextBox();
+            Db.Instance.showWorkers = true;
+        }
 
-            onlySkipModeCheckbox.IsChecked = Db.Instance.onlySkipMode;
+        private void ShowWorkersUnchecked(object sender, RoutedEventArgs e)
+        {
+            Db.Instance.showWorkers = false;
         }
     }
 }

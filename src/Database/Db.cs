@@ -33,7 +33,7 @@ namespace Starcraft_BO_helper
 
         public List<Key> skipKey = new List<Key>();
         public bool onlySkipMode = false;
-
+        public bool showWorkers = true;
 
         private Db()
         {

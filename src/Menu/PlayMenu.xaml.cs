@@ -29,7 +29,8 @@ namespace Starcraft_BO_helper
         {
             InitializeComponent();
 
-            reader = new BuildOrderReader(bo, timerLabel, previousLabel, actualLabel, nextLabel);
+            reader = new BuildOrderReader(bo, this, timerLabel, titleLabel, previousLabel, actualLabel, nextLabel);
+
         }
 
         // Back Button

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -42,6 +43,10 @@ namespace Starcraft_BO_helper
         internal void Navigate(Page newPage)
         {
             Content = newPage.Content;
+        }
+
+        private void KeyPressed(object sender, KeyEventArgs e)
+        {
         }
     }
 }

@@ -11,7 +11,22 @@ namespace Starcraft_BO_helper
 
         public string Name { get; private set; }
         private readonly string race;
-        internal List<Action> ListOfAction { get; private set; }
+
+        private List<Action> listOfAction;
+        internal List<Action> ListOfAction
+        {
+            get
+            {
+                // Remove workers from list if don't not workers option
+                if (!Db.Instance.showWorkers)
+                {
+                    var listCopy = listOfAction;
+                    listCopy.RemoveAll(a => a.IsWorker());
+                    return listCopy;
+                }
+                return listOfAction;
+            }
+        }
 
         // A BuildOrder represent a sequence of action at a exact time
         private BuildOrder(string name, string race, List<Action> listOfAction)
@@ -24,7 +39,7 @@ namespace Starcraft_BO_helper
             }
             this.race = race;
             this.Name = name.ClearWhiteSpace();
-            ListOfAction = listOfAction;
+            this.listOfAction = listOfAction;
 
         }
         // Transform a local path into a True local Path
@@ -76,8 +91,9 @@ namespace Starcraft_BO_helper
                 }
                 trueBO = new BuildOrder(lines[0], lines[1], actions);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine("Error during creation of BO. " + e.ToString());
                 return null;
             }
             return trueBO;
@@ -152,7 +168,7 @@ namespace Starcraft_BO_helper
             StringBuilder builder = new StringBuilder();
             builder.Append(Name).AppendLine();
             builder.Append(race).AppendLine();
-            foreach (Action action in ListOfAction)
+            foreach (Action action in listOfAction)
             {
                 builder.Append(action).AppendLine();
             }

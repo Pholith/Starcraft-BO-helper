@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
 namespace Starcraft_BO_helper
@@ -47,6 +49,7 @@ namespace Starcraft_BO_helper
                 if (currentAction == value)
                     return;
                 currentAction = value;
+                TimerAnimate();
                 OnPropertyChanged(1, currentAction);
             }
         }
@@ -75,13 +78,21 @@ namespace Starcraft_BO_helper
             labels[i].Content = newAction.ToString();
         }
 
+        private DoubleAnimation fontSizeAnimation;
+        private ColorAnimation colorAnimation;
+
+        private readonly Page page;
         private readonly List<Label> labels;
         private readonly List<Action> actionsOnLabels;
 
-        public BuildOrderReader(BuildOrder bo, Label timerLabel, Label previousLabel, Label currentLabel, Label nextLabel)
+        private List<Action> listOfActions;
+        private TimeSpan currentValue;
+
+        public BuildOrderReader(BuildOrder bo, Page page, Label timerLabel, Label titleLabel, Label previousLabel, Label currentLabel, Label nextLabel)
         {
             this.bo = bo;
             this.timerLabel = timerLabel;
+            this.page = page;
 
             // Initialize labels and actions lists
             labels = new List<Label>
@@ -97,7 +108,7 @@ namespace Starcraft_BO_helper
                 CurrentAction,
                 NextAction
             };
-
+            titleLabel.Content = bo.Name;
 
             //Initialise list
             listOfActions = bo.ListOfAction;
@@ -110,13 +121,15 @@ namespace Starcraft_BO_helper
             dispatcherTimer.Tick += new EventHandler(OnDispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1); // Delay before each event
             dispatcherTimer.Start();
-            ////
-
+            
+            // Animation on timer label
+            colorAnimation = new ColorAnimation(Colors.White, Colors.Red, TimeSpan.FromMilliseconds(600));
+            colorAnimation.AutoReverse = true;
+            fontSizeAnimation = new DoubleAnimation(timerLabel.FontSize, timerLabel.FontSize + 6, TimeSpan.FromMilliseconds(600));
+            fontSizeAnimation.AutoReverse = true;
         }
 
 
-        private List<Action> listOfActions;
-        private TimeSpan currentValue;
         // EventHandler tick
         private void OnDispatcherTimer_Tick(object sender, EventArgs e)
         {
@@ -130,6 +143,7 @@ namespace Starcraft_BO_helper
            }
            SkipAction(false);
         }
+        // Skip a action in the list action
         public void SkipAction(bool forced)
         {
             Action a;
@@ -151,6 +165,13 @@ namespace Starcraft_BO_helper
             NextAction = a;
 
             listOfActions.Remove(a);
+
+        }
+        // Animate the timerLabel
+        private void TimerAnimate()
+        {
+            timerLabel.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, colorAnimation);
+            timerLabel.BeginAnimation(Label.FontSizeProperty, fontSizeAnimation);
         }
     }
 }

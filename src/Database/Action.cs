@@ -42,30 +42,63 @@ namespace Starcraft_BO_helper
             return new Action(TimeSpan.MaxValue, "", 0, "");
         }
 
+        // Add a 0 if the time format is m:ss
+        private static string PreFormatTime(string time)
+        {
+            string[] splitedTime = Regex.Split(time, @"(\d{1,2}):(\d\d)");
+
+            if (splitedTime[1].Count() == 1)
+            {
+                splitedTime[1] = String.Concat("0", splitedTime[1]);
+            }
+            return string.Concat(splitedTime[1], ":", splitedTime[2]);
+        }
+
         // Parse a line with a action
         public static Action ReadActionLine(String line)
         {
-            /// Split les lignes du style  0:49 Assimilator @100% gaz
-            string[] splited = Regex.Split(line, @"^(\d{1,2}:\d{1,2})[^\S\r\n]*([^@\n\r]*)[^\S\r\n]*(?:(@\d{1,3}% {0,1}.*)|(?:.*))");
+            /// Split lines like "0:49 Assimilator @100% gaz" or  "11 0:26 Drone x2"
+            string[] splited = Regex.Split(line, @"^[^\S\r\n]*(\d{1,3}){0,1}[^\S\r\n]*(\d{1,2}:\d{1,2})[^\S\r\n]*([^@\n\r]*)[^\S\r\n]*(?:(@\d{1,3}% {0,1}.*)|(?:.*))");
 
-            TimeSpan time = TimeSpan.ParseExact(splited[1], "mm\\:ss" ,CultureInfo.InvariantCulture);
+            TimeSpan time = TimeSpan.ParseExact(PreFormatTime(splited[2]), "mm\\:ss" ,CultureInfo.InvariantCulture);
 
             Action a;
-            if (!string.IsNullOrEmpty(splited[3]))
+            if (!string.IsNullOrEmpty(splited[4]))
             {
-                /// Split les lignes du style  @100% gaz
+                /// Split lines like "@100% gaz"
                 /// // TOFIX Don't correctly parse action
-                var atTimeSplited = Regex.Split(splited[3], @"(?:@)(\d{1,3})(?:%)[^\S\r\n](.*)");
-                a = new Action(time, splited[2], int.Parse(atTimeSplited[1]), atTimeSplited[2]);
+                var atTimeSplited = Regex.Split(splited[4], @"(?:@)(\d{1,3})(?:%)[^\S\r\n](.*)");
+                a = new Action(time, splited[3], int.Parse(atTimeSplited[2]), atTimeSplited[3]);
             }
-            a = new Action(time, splited[2], 0, null);
+            a = new Action(time, splited[3], 0, null);
             return a;
         }
 
         // Return true if the time of the action is lower than the time in parameters
-        public Boolean IsPassed(TimeSpan currentTime)
+        public bool IsPassed(TimeSpan currentTime)
         {
             return currentTime.TotalMilliseconds < time.TotalMilliseconds;
+        }
+
+        // Return true if this action is about a worker
+        public bool IsWorker()
+        {
+            List<string> probsName = new List<string>
+            {
+                "CSV",
+                "Probe",
+                "Prob",
+                "Drone"
+            };
+
+            foreach (var item in probsName)
+            {
+                if (action.ToLower().Contains(item.ToLower()))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public override string ToString()
@@ -82,7 +115,6 @@ namespace Starcraft_BO_helper
             }
             return string.Format(toFormat, toStringTime, action);
         }
-
 
         public override int GetHashCode()
         {
