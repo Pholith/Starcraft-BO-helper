@@ -12,6 +12,19 @@ namespace Starcraft_BO_helper
     // Action of a bo
     internal class Action
     {
+
+        private static readonly List<string> probsName = new List<string>
+            {
+                "SCV",
+                "CSV",
+                "VCS",
+                "Worker",
+                "Probe",
+                "Prob",
+                "Drone"
+            };
+        public static readonly string regexActionParser = @"^[^\S\r\n]*(\d{1,3}){0,1}[^\S\r\n]*(\d{1,2}:\d{1,2})[^\S\r\n]*([^@\n\r]*)[^\S\r\n]*(?:(@\d{1,3}% {0,1}.*)|(?:.*))";
+
         private readonly TimeSpan time;
         private readonly String action;
         public String ActionName() { return action; }
@@ -63,7 +76,7 @@ namespace Starcraft_BO_helper
                 return null;
             }
             /// Split lines like "0:49 Assimilator @100% gaz" or  "11 0:26 Drone x2"
-            string[] splited = Regex.Split(line, @"^[^\S\r\n]*(\d{1,3}){0,1}[^\S\r\n]*(\d{1,2}:\d{1,2})[^\S\r\n]*([^@\n\r]*)[^\S\r\n]*(?:(@\d{1,3}% {0,1}.*)|(?:.*))");
+            string[] splited = Regex.Split(line, Action.regexActionParser);
 
 
             TimeSpan time = TimeSpan.ParseExact(PreFormatTime(splited[2]), "mm\\:ss" ,CultureInfo.InvariantCulture);
@@ -89,15 +102,7 @@ namespace Starcraft_BO_helper
         // Return true if this action is about a worker
         public bool IsWorker()
         {
-            List<string> probsName = new List<string>
-            {
-                "SCV",
-                "Probe",
-                "Prob",
-                "Drone"
-            };
-
-            foreach (var item in probsName)
+            foreach (var item in Action.probsName)
             {
                 if (action.ToLower().Contains(item.ToLower()))
                 {

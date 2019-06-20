@@ -108,12 +108,11 @@ namespace Starcraft_BO_helper
                     var splitedLine = Regex.Split(line, @"^(?=.*(Name|Type|Description|Matchup)\:(.*))(?:.*|\r)", RegexOptions.IgnoreCase);
 
                     // Check if the line is a action line
-                    if (Regex.Split(line, @"^[^\S\r\n]*(\d{1,3}){0,1}[^\S\r\n]*(\d{1,2}:\d{1,2})[^\S\r\n]*([^@\n\r]*)[^\S\r\n]*(?:(@\d{1,3}% {0,1}.*)|(?:.*))").Count() > 2)
+                    if (Regex.Split(line, Action.regexActionParser).Count() > 2)
                     {
                         actionLines = true;
                     }
                     
-
                     if (!actionLines)
                     {
                         if (splitedLine.Count() < 2)
