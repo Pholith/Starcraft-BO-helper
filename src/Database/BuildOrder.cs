@@ -151,16 +151,15 @@ namespace Starcraft_BO_helper
                     
                     if (!actionLines)
                     {
-                        if (splitedLine.Count() < 2)
+                        if (splitedLine.Count() > 1)
                         {
-                            break;
-                        }
+                            var meta = splitedLine[1].ToLower();
+                            if (metaData.Keys.Contains(meta))
+                            {
+                                metaData[meta] = splitedLine[2];
+                            }
 
-                        var meta = splitedLine[1].ToLower();
-                        if (metaData.Keys.Contains(meta))
-                        {
-                            metaData[meta] = splitedLine[2];
-                        } 
+                        }
                     }
                     else
                     {

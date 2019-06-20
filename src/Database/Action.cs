@@ -23,7 +23,7 @@ namespace Starcraft_BO_helper
                 "Prob",
                 "Drone"
             };
-        public static readonly string regexActionParser = @"^[^\S\r\n]*(\d{1,3}){0,1}[^\S\r\n]*(\d{1,2}:\d{1,2})[^\S\r\n]*([^@\n\r]*)[^\S\r\n]*(?:(@\d{1,3}% {0,1}.*)|(?:.*))";
+        public static readonly string regexActionParser = @"^(?:[^\S\r\n]*(\d{1,3}){0,1}[^\S\r\n]+){0,1}(\d{1,2}:\d{1,2})[^\S\r\n]*([^@\n\r]*)[^\S\r\n]*(?:(@\d{1,3}% {0,1}.*)|(?:.*))";
 
         private readonly TimeSpan time;
         private readonly String action;
@@ -59,6 +59,7 @@ namespace Starcraft_BO_helper
         // Add a 0 if the time format is m:ss
         private static string PreFormatTime(string time)
         {
+            Console.WriteLine(time);
             string[] splitedTime = Regex.Split(time, @"(\d{1,2}):(\d\d)");
 
             if (splitedTime[1].Count() == 1)
@@ -79,17 +80,17 @@ namespace Starcraft_BO_helper
             string[] splited = Regex.Split(line, Action.regexActionParser);
 
 
-            TimeSpan time = TimeSpan.ParseExact(PreFormatTime(splited[2]), "mm\\:ss" ,CultureInfo.InvariantCulture);
+            TimeSpan time = TimeSpan.ParseExact(PreFormatTime(splited[1]), "mm\\:ss" ,CultureInfo.InvariantCulture);
 
             Action a;
-            if (!string.IsNullOrEmpty(splited[4]))
+            if (!string.IsNullOrEmpty(splited[3]))
             {
                 /// Split lines like "@100% gaz"
                 /// // TOFIX Don't correctly parse action
-                var atTimeSplited = Regex.Split(splited[4], @"(?:@)(\d{1,3})(?:%)[^\S\r\n](.*)");
-                a = new Action(time, splited[3], int.Parse(atTimeSplited[2]), atTimeSplited[3]);
+                var atTimeSplited = Regex.Split(splited[3], @"(?:@)(\d{1,3})(?:%)[^\S\r\n](.*)");
+                a = new Action(time, splited[2], int.Parse(atTimeSplited[1]), atTimeSplited[2]);
             }
-            a = new Action(time, splited[3], 0, null);
+            a = new Action(time, splited[2], 0, null);
             return a;
         }
 
