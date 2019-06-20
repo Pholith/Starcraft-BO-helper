@@ -94,6 +94,7 @@ namespace Starcraft_BO_helper
         // Check if keypressed are the same as the settings, and skip the action
         private void GlobalKeyUnpressed(object sender, RawKeyEventArgs args)
         {
+            keyPressed.Remove(args.Key);
         }
 
         // Back Button

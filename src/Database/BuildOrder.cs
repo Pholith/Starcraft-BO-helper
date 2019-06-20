@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows;
 
 namespace Starcraft_BO_helper
 {
@@ -72,19 +72,34 @@ namespace Starcraft_BO_helper
         }
 
         // Transform a local path into a True local Path
-        private static string FixPathToRelative(string localPath)
+        /*private static string FixPathToRelative(string localPath)
         {
             string currentDir = Environment.CurrentDirectory;
             DirectoryInfo directory = new DirectoryInfo(
                 Path.GetFullPath(Path.Combine(currentDir, @"..\..\" + localPath)));
             return directory.ToString();
-        }
+        }*/
 
+
+        private static readonly string folderName = "/saves_bo/";
+        // Return the directory path for bo, and create it if needed.
+        private static string DirectoryPath()
+        {
+            string directory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            directory = string.Concat(directory, folderName);
+            if (!Directory.Exists(directory))
+            {
+                Console.WriteLine(folderName + " not found. Building it ...");
+                Directory.CreateDirectory(directory);
+            }
+            return directory;
+        }
         // Read All bo file in the ressource dir "save_bo/"
         public static HashSet<BuildOrder> ReadAllBO()
         {
             HashSet<BuildOrder> set = new HashSet<BuildOrder>();
-            foreach (string file in Directory.EnumerateFiles(FixPathToRelative("src/saves_bo/"), "*.bo"))
+
+            foreach (string file in Directory.EnumerateFiles(DirectoryPath(), "*.bo"))
             {
                 set.Add(ReadBO(file));
             }
@@ -94,7 +109,14 @@ namespace Starcraft_BO_helper
         // Remove a BO from the file system
         internal static void DeleteBO(BuildOrder selectedItem)
         {
-            File.Delete(FixPathToRelative(selectedItem.ToPath()));
+            string directory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string path = string.Concat(directory, selectedItem.ToPath());
+
+            if (!File.Exists(path))
+            {
+                Console.WriteLine("Error deleting BuildOrder. File not found. Maybe the name of the file is not the name of the BO.");
+            }
+            File.Delete(path);
         }
 
         // create a object BO from it string format
@@ -176,8 +198,8 @@ namespace Starcraft_BO_helper
         // Save a BO file
         public static void SaveBO(BuildOrder bo)
         {
-            string path = FixPathToRelative(bo.ToPath());
-            using (StreamWriter file = new StreamWriter(path))
+
+            using (StreamWriter file = new StreamWriter(string.Concat(DirectoryPath(), bo.ToPath())))
             {
                 file.Write(bo.ToFormat());
             }
@@ -223,7 +245,7 @@ namespace Starcraft_BO_helper
         // Return the relative path of the BO save
         public string ToPath()
         {
-            return string.Concat("src/saves_bo/", Name, ".bo");
+            return string.Concat(Name, ".bo");
         }
     }
 

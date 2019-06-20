@@ -78,6 +78,7 @@ namespace Starcraft_BO_helper
         }
 
         private readonly DoubleAnimation fontSizeAnimation;
+        private readonly DoubleAnimation fontSizeAnimationActualL;
         private readonly ColorAnimation colorAnimation;
 
         private readonly Page page;
@@ -88,8 +89,8 @@ namespace Starcraft_BO_helper
         private TimeSpan currentValue;
         private bool playStarted = false;
 
-        private const int fontSize = 36;
-
+        private const int fontSize = 38;
+    
         public BuildOrderReader(BuildOrder bo, Page page, TextBlock timerLabel, Label titleLabel, Label previousLabel, Label currentLabel, Label nextLabel)
         {
             this.bo = bo;
@@ -124,12 +125,17 @@ namespace Starcraft_BO_helper
             {
                 AutoReverse = true
             };
-            fontSizeAnimation = new DoubleAnimation(fontSize, fontSize + 10, TimeSpan.FromMilliseconds(800))
+            fontSizeAnimation = new DoubleAnimation(fontSize, fontSize + 6, TimeSpan.FromMilliseconds(800))
+            {
+                AutoReverse = true
+            };
+            fontSizeAnimationActualL = new DoubleAnimation(labels[1].FontSize, labels[1].FontSize + 4, TimeSpan.FromMilliseconds(500))
             {
                 AutoReverse = true
             };
         }
 
+        // Start the clock
         public void Start()
         {
             Console.WriteLine("Build Order Reader started.");
@@ -141,6 +147,7 @@ namespace Starcraft_BO_helper
             dispatcherTimer.Start();
             playStarted = true;
         }
+        // Return true of the reader started
         public bool Started()
         {
             return playStarted;
@@ -187,6 +194,7 @@ namespace Starcraft_BO_helper
         {
             timerLabel.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, colorAnimation);
             timerLabel.BeginAnimation(TextBlock.FontSizeProperty, fontSizeAnimation);
+            labels[1].BeginAnimation(Label.FontSizeProperty, fontSizeAnimationActualL);
         }
     }
 }

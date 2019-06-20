@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Starcraft_BO_helper
 {
@@ -24,12 +15,15 @@ namespace Starcraft_BO_helper
         {
             InitializeComponent();
         }
-
         private void BackSelectMenu(object sender, RoutedEventArgs e)
         {
             Switcher.SwitchPage(new MainMenu());
         }
 
+        private void OnAction()
+        {
+            Db.Save();
+        }
         private new void Loaded(object sender, RoutedEventArgs e)
         {
             // Load the textBox
@@ -42,6 +36,7 @@ namespace Starcraft_BO_helper
         }
 
 
+        // Textbox
         private List<Key> keyPressed = new List<Key>();
 
         private void KeyPressed(object sender, KeyEventArgs e)
@@ -83,6 +78,7 @@ namespace Starcraft_BO_helper
                 }
             }
             textBox.Text = str;
+            OnAction();
         }
 
         private void UpdateTextBox(object sender, TextChangedEventArgs e)
@@ -96,22 +92,26 @@ namespace Starcraft_BO_helper
             UpdateTextBox();
         }
 
+        // Checkbox
         private void OnlySkipModeChecked(object sender, RoutedEventArgs e)
         {
             Db.Instance.onlySkipMode = true;
+            OnAction();
         }
         private void OnlySkipModeUnchecked(object sender, RoutedEventArgs e)
         {
             Db.Instance.onlySkipMode = false;
+            OnAction();
         }
         private void ShowWorkersChecked(object sender, RoutedEventArgs e)
         {
             Db.Instance.showWorkers = true;
+            OnAction();
         }
-
         private void ShowWorkersUnchecked(object sender, RoutedEventArgs e)
         {
             Db.Instance.showWorkers = false;
+            OnAction();
         }
     }
 }

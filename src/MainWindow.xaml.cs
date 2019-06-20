@@ -32,7 +32,7 @@ namespace Starcraft_BO_helper
 
             // initialize the others windows
             mainMenu = new MainMenu();
-
+            Db.Load();
             //page switcher and initial page   
             Switcher.window = this;
             Switcher.SwitchPage(mainMenu);  

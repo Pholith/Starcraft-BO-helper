@@ -35,7 +35,7 @@
             </Border>
             <Label Content="Actual" Margin="0,15,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Border BorderBrush="Black" BorderThickness="3" Height="90" Margin="0,1,0,0" HorizontalAlignment="Center" Width="800" VerticalAlignment="Center">
-                <Label x:Name="actualLabel" FontSize="20" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,-3,-3"/>
+                <Label x:Name="actualLabel" FontSize="26" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,-3,-3"/>
             </Border>
         </StackPanel>
     </UserControl>
