@@ -62,6 +62,7 @@ namespace Starcraft_BO_helper
 
         private void GlobalKeyPressed(object sender, RawKeyEventArgs e)
         {
+
             var keyPressedCopy = keyPressed;
             // Remove all key that are Alphanumeric
             keyPressedCopy.RemoveAll(k =>
@@ -75,14 +76,11 @@ namespace Starcraft_BO_helper
                 keyPressed.Add(e.Key);
             }
 
-        }
-        // Check if keypressed are the same as the settings, and skip the action
-        private void GlobalKeyUnpressed(object sender, RawKeyEventArgs args)
-        {
+            // Check Key List 
             if (Db.Instance.skipKey.All(keyPressed.Contains))
             {
                 keyPressed.Clear();
-            
+
                 if (reader.Started())
                 {
                     reader.SkipAction(true);
@@ -92,6 +90,10 @@ namespace Starcraft_BO_helper
                     reader.Start();
                 }
             }
+        }
+        // Check if keypressed are the same as the settings, and skip the action
+        private void GlobalKeyUnpressed(object sender, RawKeyEventArgs args)
+        {
         }
 
         // Back Button
