@@ -94,6 +94,7 @@
     <Compile Include="src\Database\BuildOrder.cs" />
     <Compile Include="src\Database\BuildOrderReader.cs" />
     <Compile Include="src\Database\Db.cs" />
+    <Compile Include="src\KeyboardListener.cs" />
     <Compile Include="src\Menu\PlayMenu.xaml.cs">
       <DependentUpon>PlayMenu.xaml</DependentUpon>
     </Compile>

@@ -15,7 +15,7 @@ namespace Starcraft_BO_helper
     class BuildOrderReader
     {
         private readonly BuildOrder bo;
-        private readonly Label timerLabel;
+        private readonly TextBlock timerLabel;
 
         private DateTime TimerStart { get; set; }
 
@@ -65,7 +65,6 @@ namespace Starcraft_BO_helper
             {
                 if (nextAction == value)
                     return;
-                Console.WriteLine(nextAction);
                 nextAction = value;
                 OnPropertyChanged(2, nextAction);
             }
@@ -87,13 +86,16 @@ namespace Starcraft_BO_helper
 
         private readonly List<Action> listOfActions;
         private TimeSpan currentValue;
+        private bool playStarted = false;
 
-        public BuildOrderReader(BuildOrder bo, Page page, Label timerLabel, Label titleLabel, Label previousLabel, Label currentLabel, Label nextLabel)
+        private const int fontSize = 36;
+
+        public BuildOrderReader(BuildOrder bo, Page page, TextBlock timerLabel, Label titleLabel, Label previousLabel, Label currentLabel, Label nextLabel)
         {
             this.bo = bo;
             this.timerLabel = timerLabel;
             this.page = page;
-
+            
             // Initialize labels and actions lists
             labels = new List<Label>
             {
@@ -116,26 +118,39 @@ namespace Starcraft_BO_helper
             listOfActions.Remove(NextAction);
 
             // Time setup
-            this.TimerStart = DateTime.Now;
+
+            // Animation on timer label
+            colorAnimation = new ColorAnimation(Colors.White, Colors.Red, TimeSpan.FromMilliseconds(800))
+            {
+                AutoReverse = true
+            };
+            fontSizeAnimation = new DoubleAnimation(fontSize, fontSize + 10, TimeSpan.FromMilliseconds(800))
+            {
+                AutoReverse = true
+            };
+        }
+
+        public void Start()
+        {
+            Console.WriteLine("Build Order Reader started.");
+            timerLabel.FontSize = fontSize;
+            TimerStart = DateTime.Now;
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(OnDispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1); // Delay before each event
             dispatcherTimer.Start();
-            
-            // Animation on timer label
-            colorAnimation = new ColorAnimation(Colors.White, Colors.Red, TimeSpan.FromMilliseconds(800));
-            colorAnimation.AutoReverse = true;
-            fontSizeAnimation = new DoubleAnimation(timerLabel.FontSize, timerLabel.FontSize + 10, TimeSpan.FromMilliseconds(800));
-            fontSizeAnimation.AutoReverse = true;
+            playStarted = true;
         }
-
-
+        public bool Started()
+        {
+            return playStarted;
+        }
         // EventHandler tick
         private void OnDispatcherTimer_Tick(object sender, EventArgs e)
         {
             // Update the timer label
             currentValue = DateTime.Now - this.TimerStart;
-            timerLabel.Content = currentValue.ToString(@"mm\:ss\:ff");
+            timerLabel.Text = currentValue.ToString(@"mm\:ss\:ff");
 
            if (NextAction.IsPassed(currentValue))
            {
@@ -171,7 +186,7 @@ namespace Starcraft_BO_helper
         private void TimerAnimate()
         {
             timerLabel.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, colorAnimation);
-            timerLabel.BeginAnimation(Label.FontSizeProperty, fontSizeAnimation);
+            timerLabel.BeginAnimation(TextBlock.FontSizeProperty, fontSizeAnimation);
         }
     }
 }

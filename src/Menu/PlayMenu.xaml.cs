@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,12 +26,72 @@ namespace Starcraft_BO_helper
 
         private BuildOrderReader reader;
 
+        KeyboardListener KListener = new KeyboardListener();
+
         public PlayMenu(BuildOrder bo)
         {
             InitializeComponent();
 
             reader = new BuildOrderReader(bo, this, timerLabel, titleLabel, previousLabel, actualLabel, nextLabel);
 
+            Console.WriteLine("Starting Global Key listener...");
+            KListener.KeyDown += new RawKeyEventHandler(GlobalKeyPressed);
+            KListener.KeyUp += new RawKeyEventHandler(GlobalKeyUnpressed);
+
+
+            /*
+            Process[] processlist = Process.GetProcesses();
+            Process sp = null;
+            foreach (Process process in processlist)
+            {
+                //Console.WriteLine("Process: {0} ID: {1}", process.ProcessName, process.Id);
+                if (process.ProcessName == "SC2_x64")
+                {
+                    sp = process;
+                    Console.WriteLine(process.ProcessName);
+                }
+                if (process.Id == 7888)
+                {
+                    Console.WriteLine(process.StartTime);
+                    Console.WriteLine("Process: {0} ID: {1}", process.ProcessName, process.Id);
+                }
+            } */
+        }
+        // Match globals key (using a other app like Starcraft)
+        private List<Key> keyPressed = new List<Key>();
+
+        private void GlobalKeyPressed(object sender, RawKeyEventArgs e)
+        {
+            var keyPressedCopy = keyPressed;
+            // Remove all key that are Alphanumeric
+            keyPressedCopy.RemoveAll(k =>
+                (k >= Key.A && k <= Key.Z) || (k >= Key.D0 && k <= Key.D9) || (k >= Key.NumPad0 && k <= Key.NumPad9));
+            if (keyPressedCopy.Count() > 1)
+            {
+                // Don't add the Key
+            }
+            else if (!keyPressed.Contains(e.Key))
+            {
+                keyPressed.Add(e.Key);
+            }
+
+        }
+        // Check if keypressed are the same as the settings, and skip the action
+        private void GlobalKeyUnpressed(object sender, RawKeyEventArgs args)
+        {
+            if (Db.Instance.skipKey.All(keyPressed.Contains))
+            {
+                keyPressed.Clear();
+            
+                if (reader.Started())
+                {
+                    reader.SkipAction(true);
+                }
+                else
+                {
+                    reader.Start();
+                }
+            }
         }
 
         // Back Button
@@ -39,22 +100,16 @@ namespace Starcraft_BO_helper
             Switcher.SwitchPage(new Select());
         }
 
-        private void KeyPressed(object sender, KeyEventArgs e)
-        {
-            reader.SkipAction(true);
-        }
-
-        // Bind the Key handlers at loading the page
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            Console.WriteLine("UserControl_Loaded");
-            Switcher.window.KeyDown += KeyPressed;
-        }
         // UnBind the Key handlers at unloading the page (switching page)
         private void Unload(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("UserControl_Unloaded");
-            Switcher.window.KeyDown -= KeyPressed;
+            Console.WriteLine("End Global key listener...");
+            KListener.Dispose();
+        }
+
+        private void MouseEnterClic(object sender, MouseEventArgs e)
+        {
+            reader.Start();
         }
     }
 }

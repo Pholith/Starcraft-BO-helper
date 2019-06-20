@@ -99,15 +99,18 @@ namespace Starcraft_BO_helper
             deleteButton.IsEnabled = true;
 
             // BO preview
-            selectedBO.Items.Clear();
-
+            selectedBOPreview.Items.Clear();
            
             BuildOrder preview = (BuildOrder) GetSelectedList().SelectedItem;
-            boName.Content = preview.Name;
-            List <Action> actions = preview.ListOfAction;
+            boNamePreview.Content = preview.Name;
+            foreach (var meta in preview.MetaDataToString)
+            {
+                selectedBOPreview.Items.Add(meta);
+            }
+            List<Action> actions = preview.ListOfAction;
             foreach (Action action in actions)
             {
-                selectedBO.Items.Add(action.ToString());
+                selectedBOPreview.Items.Add(action.ToString());
             }
         }
     }

@@ -12,12 +12,12 @@ namespace Starcraft_BO_helper
     {
 
         public string Name { get; private set; }
-        private string type;
-        private string matchup;
-        private string description;
+        private readonly string type;
+        private readonly string matchup;
+        private readonly string description;
         private string race;
 
-        private List<Action> listOfAction;
+        private readonly List<Action> listOfAction;
         internal List<Action> ListOfAction
         {
             get
@@ -30,6 +30,20 @@ namespace Starcraft_BO_helper
                     return listCopy;
                 }
                 return listOfAction;
+            }
+        }
+        internal List<string> MetaDataToString
+                {
+            get
+            {
+                List<string> metas = new List<string>
+                {
+                    string.Concat("Race: ", Race.TotalName(race)),
+                    string.Concat("Matchup: ", matchup),
+                    string.Concat("Type: ", type),
+                    ""
+                };
+                return metas;
             }
         }
 
@@ -221,5 +235,21 @@ namespace Starcraft_BO_helper
         public const string Zerg = "z";
         public static readonly string[] Races = { Protoss, Terran, Zerg };
 
+        public static string TotalName(string s)
+        {
+            if (s.ToLower() == Protoss)
+            {
+                return "Protoss";
+            }
+            if (s.ToLower() == Terran)
+            {
+                return "Terran";
+            }
+            if (s.ToLower() == Zerg)
+            {
+                return "Zerg";
+            }
+            throw new InvalidDataException("The race name is not recognizable.");
+        }
     }
 }

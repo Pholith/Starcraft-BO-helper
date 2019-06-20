@@ -65,7 +65,7 @@
             <Button x:Name="deleteButton" Content="Delete" FontSize="18" VerticalAlignment="Center" Height="45.94" Margin="95,0,0,0" Width="135.44" Background="#FFBBBBBB" Foreground="Black" BorderBrush="Black" Click="DeleteSelected" IsEnabled="False" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
         </StackPanel>
         <StackPanel Height="427" VerticalAlignment="Top" Margin="108,-427,10,0" DockPanel.Dock="Top">
-            <Label x:Name="boName" Content="No BO selected" Height="26" VerticalAlignment="Center" RenderTransformOrigin="0.598,0.579" HorizontalContentAlignment="Center" Margin="0,0,0,4" HorizontalAlignment="Center" Width="300">
+            <Label x:Name="boNamePreview" Content="No BO selected" Height="26" VerticalAlignment="Center" RenderTransformOrigin="0.598,0.579" HorizontalContentAlignment="Center" Margin="0,0,0,4" HorizontalAlignment="Center" Width="300">
                 <Label.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFE8E8E8" Offset="0"/>
@@ -73,7 +73,7 @@
                     </LinearGradientBrush>
                 </Label.Background>
             </Label>
-            <ListBox x:Name="selectedBO" Background="#FF7C7C7C" Height="411" VerticalAlignment="Top" BorderBrush="{x:Null}" Margin="0,0,8.445,0"/>
+            <ListBox x:Name="selectedBOPreview" Background="#FF7C7C7C" Height="411" VerticalAlignment="Top" BorderBrush="{x:Null}" Margin="0,0,8.445,0"/>
         </StackPanel>
     </DockPanel>
 </Page>

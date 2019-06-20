@@ -31,7 +31,7 @@ namespace Starcraft_BO_helper
         }
         // End template of a Singleton
 
-        public List<Key> skipKey = new List<Key>();
+        public List<Key> skipKey = new List<Key> { Key.LeftCtrl , Key.D };
         public bool onlySkipMode = false;
         public bool showWorkers = true;
 
