@@ -41,6 +41,7 @@ namespace Starcraft_BO_helper
                     string.Concat("Race: ", Race.TotalName(race)),
                     string.Concat("Matchup: ", matchup),
                     string.Concat("Type: ", type),
+                    string.Concat("Description: ", description),
                     ""
                 };
                 return metas;
@@ -208,8 +209,10 @@ namespace Starcraft_BO_helper
         public string ToFormat()
         {
             StringBuilder builder = new StringBuilder();
-            builder.Append(Name).AppendLine();
-            builder.Append(race).AppendLine();
+            foreach (var str in MetaDataToString)
+            {
+                builder.Append(str).AppendLine();
+            }
             foreach (Action action in listOfAction)
             {
                 builder.Append(action).AppendLine();

@@ -59,7 +59,6 @@ namespace Starcraft_BO_helper
         // Add a 0 if the time format is m:ss
         private static string PreFormatTime(string time)
         {
-            Console.WriteLine(time);
             string[] splitedTime = Regex.Split(time, @"(\d{1,2}):(\d\d)");
 
             if (splitedTime[1].Count() == 1)
