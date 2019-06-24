@@ -83,7 +83,7 @@ namespace Starcraft_BO_helper
 
                 if (reader.Started())
                 {
-                    reader.SkipAction(true);
+                    reader.SkipAction();
                 }
                 else
                 {

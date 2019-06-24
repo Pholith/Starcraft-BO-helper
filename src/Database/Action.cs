@@ -23,37 +23,30 @@ namespace Starcraft_BO_helper
                 "Prob",
                 "Drone"
             };
-        public static readonly string regexActionParser = @"^(?:[^\S\r\n]*(\d{1,3}){0,1}[^\S\r\n]+){0,1}(\d{1,2}:\d{1,2})[^\S\r\n]*([^@\n\r]*)[^\S\r\n]*(?:(@\d{1,3}% {0,1}.*)|(?:.*))";
+        public static readonly string regexActionParser = @"^(?:\s*(\d{1,3}){0,1}[^\S\r\n]+){0,1}(\d{1,2}:\d{1,2})\s*([^-\n\r]*)(?:-\s*(.*)){0,1}";
 
         private readonly TimeSpan time;
         private readonly String action;
         public String ActionName() { return action; }
-        private readonly int atTime;
-        private readonly String atTimeAction;
 
-        public Action(TimeSpan time, string action, int atTime, String atTimeAction)
+        private readonly String comment;
+
+
+        public Action(TimeSpan time, string action, string comment)
         {
             this.time = time;
+            this.comment = comment;
             this.action = action.ClearWhiteSpace() ?? throw new ArgumentNullException(nameof(action));
-            this.atTime = atTime;
-            if (atTimeAction != null)
-            {
-                this.atTimeAction = atTimeAction.ClearWhiteSpace();
-            }
-            else
-            {
-                this.atTimeAction = null;
-            }
         }
 
         // Equivalent for null of a action
         public static Action Zero()
         {
-            return new Action(new TimeSpan(), "", 0, "");
+            return new Action(new TimeSpan(), "", "");
         }
         public static Action Infinite()
         {
-            return new Action(TimeSpan.MaxValue, "", 0, "");
+            return new Action(TimeSpan.MaxValue, "", "");
         }
 
         // Add a 0 if the time format is m:ss
@@ -75,21 +68,13 @@ namespace Starcraft_BO_helper
             {
                 return null;
             }
-            /// Split lines like "0:49 Assimilator @100% gaz" or  "11 0:26 Drone x2"
+            /// Split lines like "0:49 Assimilator - commentary" or "11 0:26 Drone x2"
             string[] splited = Regex.Split(line, Action.regexActionParser);
 
 
             TimeSpan time = TimeSpan.ParseExact(PreFormatTime(splited[1]), "mm\\:ss" ,CultureInfo.InvariantCulture);
 
-            Action a;
-            if (!string.IsNullOrEmpty(splited[3]))
-            {
-                /// Split lines like "@100% gaz"
-                /// // TOFIX Don't correctly parse action
-                var atTimeSplited = Regex.Split(splited[3], @"(?:@)(\d{1,3})(?:%)[^\S\r\n](.*)");
-                a = new Action(time, splited[2], int.Parse(atTimeSplited[1]), atTimeSplited[2]);
-            }
-            a = new Action(time, splited[2], 0, null);
+            Action a = new Action(time, splited[2], splited[3]);
             return a;
         }
 
@@ -115,36 +100,19 @@ namespace Starcraft_BO_helper
         public override string ToString()
         {
             string toFormat = "{0} {1}";
-            if (atTime != 0 && !string.IsNullOrWhiteSpace(atTimeAction))
-            {
-                toFormat = string.Concat(toFormat, string.Format(" @{0}% {1}", atTime, atTimeAction));
-            }
+
             var toStringTime = time.ToString(@"mm\:ss");
             if (time == TimeSpan.MaxValue)
             {
                 toStringTime = "";
             }
-            return string.Format(toFormat, toStringTime, action);
-        }
+            toFormat = string.Format(toFormat, toStringTime, action, comment);
 
-        public override int GetHashCode()
-        {
-            var hashCode = -949174417;
-            hashCode = hashCode * -1521134295 + EqualityComparer<TimeSpan>.Default.GetHashCode(time);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(action);
-            hashCode = hashCode * -1521134295 + atTime.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(atTimeAction);
-            return hashCode;
-        }
-
-        public override bool Equals(object obj)
-        {
-            Action action = obj as Action;
-            return action != null &&
-                   time.Equals(action.time) &&
-                   this.action == action.action &&
-                   atTime == action.atTime &&
-                   atTimeAction == action.atTimeAction;
-        }
+            if (!string.IsNullOrWhiteSpace(comment))
+            {
+                toFormat = string.Concat(toFormat, " - ", comment);
+            }
+            return toFormat;
+        }    	  
     }
 }

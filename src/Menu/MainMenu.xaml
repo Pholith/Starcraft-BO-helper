@@ -8,9 +8,7 @@
         Title="MainWindow" Height="377" Width="594" Background="#FF2B2B2B">
     <StackPanel Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Button x:Name="selectButton" Content="Play" HorizontalAlignment="Center" Margin="0" Height="46.324" Width="113.312" Background="#FF5D5D5D" Foreground="White" Click="SelectMenu" FontSize="16" BorderBrush="Black"/>
-        <Button x:Name="selectButton_Copy" Content="Settings" HorizontalAlignment="Center" Margin="0,30,0,0" Height="27.93" Width="108.312" Background="#FF5D5D5D" Foreground="White" Click="SettingsButton" FontSize="16" BorderBrush="Black"/>
-        <Button x:Name="___Button___" Content="Paste BO Format to save a BO" Background="#FF636363" Foreground="White" HorizontalAlignment="Center" Height="21" Margin="0,30,0,0" Width="230" Click="AddBo" BorderBrush="Black"/>
-        <TextBox x:Name="BoInput" Height="25" Margin="0" TextWrapping="Wrap" Background="#FF636363" Foreground="White" BorderBrush="Black" HorizontalAlignment="Center" Width="135.626" VerticalContentAlignment="Center" AcceptsReturn="True"/>
-        <Label x:Name="labelAddBO" Content="" Height="26" Margin="0" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="208.994" Foreground="White"/>
+        <Button x:Name="selectButton_Copy" Content="Create a BO" HorizontalAlignment="Center" Margin="0,30,0,0" Height="27.93" Width="108.312" Background="#FF5D5D5D" Foreground="White" Click="CreateBOClick" FontSize="16" BorderBrush="Black"/>
+        <Button x:Name="selectButton_Copy1" Content="Settings" HorizontalAlignment="Center" Margin="0,30,0,0" Height="27.93" Width="108.312" Background="#FF5D5D5D" Foreground="White" Click="SettingsClick" FontSize="16" BorderBrush="Black"/>
     </StackPanel>
 </Page>

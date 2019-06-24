@@ -12,11 +12,7 @@ namespace Starcraft_BO_helper
     {
 
         public string Name { get; private set; }
-        private readonly string type;
-        private readonly string matchup;
-        private readonly string description;
-        private string race;
-
+        private readonly Dictionary<string, string> metaDatas;
         private readonly List<Action> listOfAction;
         internal List<Action> ListOfAction
         {
@@ -38,36 +34,62 @@ namespace Starcraft_BO_helper
             {
                 List<string> metas = new List<string>
                 {
-                    string.Concat("Race: ", Race.TotalName(race)),
-                    string.Concat("Matchup: ", matchup),
-                    string.Concat("Type: ", type),
-                    string.Concat("Description: ", description),
+                    string.Concat("Race: ", Race.TotalName(metaDatas["race"])),
+                    string.Concat("Matchup: ", metaDatas["matchup"]),
+                    string.Concat("Type: ", metaDatas["type"]),
+                    string.Concat("Description: ", metaDatas["description"]),
                     ""
                 };
                 return metas;
             }
         }
 
+        private static List<string> allowedDatas = new List<string> { "matchup", "description", "type", "author" };
+        private static List<string> requiredDatas = new List<string> { "matchup" };
+
+
         // A BuildOrder represent a sequence of action at a exact time
-        private BuildOrder(string name, string type, string matchup, string description, List<Action> listOfAction)
+        private BuildOrder(string name, List<Action> listOfAction, Dictionary<string, string> metaDatas)
         {
-            // Throw ArgumentException if race string is not valide
-            string[] temp = Regex.Split(matchup, @"[^\S\r\n]*([ZTPX])V[ZTPX][^\S\r\n]*", RegexOptions.IgnoreCase);
-            if (temp.Count() < 1)
+            if (metaDatas == null || string.IsNullOrWhiteSpace(name) || listOfAction == null)
             {
-                throw new ArgumentException("Can't Parse the BO. Matchup field is required.");
+                throw new ArgumentNullException();
             }
-            race = temp[1];
-            if (!Race.Races.Contains(race.ToLower()))
+            // Check if required data are set
+            foreach (var item in requiredDatas)
+            {
+                if (!metaDatas.ContainsKey(item))
+                {
+                    throw new ArgumentException(item + "data is required to create a build order");
+                }
+            }
+            // Fill empty datas if not given in the constructor
+            foreach (var item in allowedDatas)
+            {
+                if (!metaDatas.ContainsKey(item))
+                {
+                    metaDatas.Add(item, "");
+                } else
+                {
+                    metaDatas[item] = metaDatas[item].ClearWhiteSpace();
+                }
+            }
+
+            // Throw ArgumentException if race string is not valide
+            string[] splitedMatchup = Regex.Split(metaDatas["matchup"], @"[^\S\r\n]*([ZTPX])V[ZTPX][^\S\r\n]*", RegexOptions.IgnoreCase);
+            if (splitedMatchup.Count() < 1)
+            {
+                throw new ArgumentException("Can't Parse the BO. Matchup field can't be empty.");
+            }
+            if (!Race.Races.Contains(splitedMatchup[1].ToLower()))
             {
                 throw new ArgumentException("Can't Parse the BO. Don't reconnizing the race.");
             }
+            metaDatas.Add("race", splitedMatchup[1]);
 
+            this.metaDatas = metaDatas;
 
             Name = name.ClearWhiteSpace();
-            this.type = type.ClearWhiteSpace();
-            this.matchup = matchup.ClearWhiteSpace();
-            this.description = description.ClearWhiteSpace();
 
             this.listOfAction = listOfAction;
         }
@@ -171,7 +193,7 @@ namespace Starcraft_BO_helper
                         };
                     }
                 }
-                bo = new BuildOrder(metaData["name"], metaData["type"], metaData["matchup"], metaData["description"], actionList);
+                bo = new BuildOrder(metaData["name"], actionList, metaData);
             }
             catch (Exception e)
             {
@@ -209,9 +231,10 @@ namespace Starcraft_BO_helper
         public string ToFormat()
         {
             StringBuilder builder = new StringBuilder();
-            foreach (var str in MetaDataToString)
+            builder.Append("Name : " + Name).AppendLine();
+            foreach (var item in metaDatas)
             {
-                builder.Append(str).AppendLine();
+                builder.Append(item.Key + ": " + item.Value).AppendLine();
             }
             foreach (Action action in listOfAction)
             {
@@ -221,25 +244,26 @@ namespace Starcraft_BO_helper
             return builder.ToString();
         }
 
+        // Return true if the BuildOrder is of the specified race
         public bool IsTerran()
         {
-            return race.ToLower() == Race.Terran;
+            return metaDatas["race"].ToLower() == Race.Terran;
         }
 
         public bool IsZerg()
         {
-            return race.ToLower() == Race.Zerg;
+            return metaDatas["race"].ToLower() == Race.Zerg;
         }
 
         public bool IsProtoss()
         {
-            return race.ToLower() == Race.Protoss;
+            return metaDatas["race"].ToLower() == Race.Protoss;
         }
 
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();
-            builder.Append(race).Append(": ");
+            builder.Append(metaDatas["race"]).Append(": ");
             builder.Append(Name);
 
             return builder.ToString();

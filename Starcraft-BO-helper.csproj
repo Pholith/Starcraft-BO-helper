@@ -77,6 +77,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="src\Menu\BuildOrderMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="src\Menu\MainMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -95,6 +99,9 @@
     <Compile Include="src\Database\BuildOrderReader.cs" />
     <Compile Include="src\Database\Db.cs" />
     <Compile Include="src\KeyboardListener.cs" />
+    <Compile Include="src\Menu\BuildOrderMenu.xaml.cs">
+      <DependentUpon>BuildOrderMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\Menu\PlayMenu.xaml.cs">
       <DependentUpon>PlayMenu.xaml</DependentUpon>
     </Compile>
@@ -143,6 +150,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="readme.md" />
     <None Include="src\App.config" />
   </ItemGroup>
   <ItemGroup>

@@ -15,26 +15,20 @@ using System.Windows.Shapes;
 
 namespace Starcraft_BO_helper
 {
-    public partial class MainMenu : Page
+    /// <summary>
+    /// Logique d'interaction pour BuildOrderMenu.xaml
+    /// </summary>
+    public partial class BuildOrderMenu : Page
     {
-        public MainMenu()
+        public BuildOrderMenu()
         {
             InitializeComponent();
         }
-        private void SelectMenu(object sender, RoutedEventArgs e)
+
+        private void BackMenu(object sender, RoutedEventArgs e)
         {
-            Switcher.SwitchPage(new Select());
+            Switcher.SwitchPage(new MainMenu());
         }
 
-
-        private void SettingsClick(object sender, RoutedEventArgs e)
-        {
-            Switcher.SwitchPage(new Settings());
-        }
-
-        private void CreateBOClick(object sender, RoutedEventArgs e)
-        {
-            Switcher.SwitchPage(new BuildOrderMenu());
-        }
     }
 }

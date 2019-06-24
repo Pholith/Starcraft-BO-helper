@@ -159,14 +159,18 @@ namespace Starcraft_BO_helper
             currentValue = DateTime.Now - this.TimerStart;
             timerLabel.Text = currentValue.ToString(@"mm\:ss\:ff");
 
-           if (NextAction.IsPassed(currentValue))
-           {
+            if (NextAction.IsPassed(currentValue))
+            {
                return;
-           }
-           SkipAction(false);
+            }
+            if (Db.Instance.onlySkipMode)
+            {
+                return;
+            }
+            SkipAction();
         }
         // Skip a action in the list action
-        public void SkipAction(bool forced)
+        public void SkipAction()
         {
             Action a;
 

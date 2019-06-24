@@ -6,39 +6,49 @@
       xmlns:local="clr-namespace:Starcraft_BO_helper"
       mc:Ignorable="d"
       Title="Settings" Height="610" Width="957.926" Background="#FF2C2C2C">
-    <StackPanel Loaded="Loaded">
-        <Button Content="🡄" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Height="42.94" Width="46.94" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="BackSelectMenu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,10,0,0"/>
-        <DockPanel x:Name="stackPanel1" LastChildFill="False" Margin="0,0,7.258,0" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <Label Content="SkipButton" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Width="127.511" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White" Height="45.36"/>
-            <Border BorderBrush="Black" BorderThickness="3" Height="42.94" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="191.231">
-                <TextBox x:Name="textBox" FontSize="14" Background="#FFEAEAEA" VerticalContentAlignment="Center" Text="&#xD;&#xA;" KeyDown="KeyPressed" KeyUp="KeyUnpressed" TabIndex="2147483646" TextChanged="UpdateTextBox" AllowDrop="False" IsUndoEnabled="False" IsReadOnly="True" GotMouseCapture="TextBox_GotFocus"/>
+    <DockPanel Loaded="Loaded" UseLayoutRounding="False" >
+        <Button Content="🡄" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Height="44" Width="48" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="BackSelectMenu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,10,10,5" DockPanel.Dock="Top"/>
+        <Grid Loaded="Loaded" UseLayoutRounding="False" Margin="50,10,50,50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250*"/>
+                <ColumnDefinition Width="249*"/>
+                <ColumnDefinition Width="449*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <CheckBox x:Name="onlySkipModeCheckbox" Content="" RenderTransformOrigin="0.5,0.5" Checked="OnlySkipModeChecked" Unchecked="OnlySkipModeUnchecked" Margin="0" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" Padding="0" HorizontalAlignment="Center">
+                <CheckBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </CheckBox.RenderTransform>
+            </CheckBox>
+            <CheckBox x:Name="showWorkersCheckbox" Content="" RenderTransformOrigin="0.5,0.5" Checked="ShowWorkersChecked" Unchecked="ShowWorkersUnchecked" IsChecked="True" Margin="0" Grid.Row="2" Grid.Column="1" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <CheckBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </CheckBox.RenderTransform>
+            </CheckBox>
+            <Label Content="SkipButton" HorizontalAlignment="Left" FontSize="20" Foreground="White" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+            <Label Content="OnlySkip Mode" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" FontSize="20" Foreground="White" VerticalContentAlignment="Center" Grid.Row="1"/>
+            <Label Content="Show Workers" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" FontSize="20" Foreground="White" VerticalContentAlignment="Center" Grid.Row="2" Height="36.4"/>
+            <Border BorderBrush="Black" BorderThickness="3" Height="43" VerticalAlignment="Center" HorizontalAlignment="Center" Width="190" Margin="0" Grid.Column="1">
+                <TextBox x:Name="textBox" FontSize="14" Background="#FFEAEAEA" VerticalContentAlignment="Center" Text="&#xA;" KeyDown="KeyPressed" KeyUp="KeyUnpressed" TabIndex="2147483646" TextChanged="UpdateTextBox" AllowDrop="False" IsUndoEnabled="False" IsReadOnly="True" GotMouseCapture="TextBox_GotFocus" Margin="0" d:IsLocked="True"/>
             </Border>
-        </DockPanel>
-        <DockPanel x:Name="stackPanel1_Copy" LastChildFill="False" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="195.89" >
-            <Label Content="OnlySkip Mode" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0" Width="152.511" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White" Height="45.36"/>
-            <CheckBox x:Name="onlySkipModeCheckbox" Content="" HorizontalAlignment="Center" Width="16.378" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Checked="OnlySkipModeChecked" Unchecked="OnlySkipModeUnchecked">
-                <CheckBox.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="2" ScaleY="2"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </CheckBox.RenderTransform>
-            </CheckBox>
-        </DockPanel>
-        <DockPanel x:Name="stackPanel1_Copy1" LastChildFill="False" Margin="381.055,10,381.055,0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="195.89" >
-            <Label Content="Show Workers" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,10,0" Width="152.511" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White" Height="45.36"/>
-            <CheckBox x:Name="showWorkersCheckbox" Content="" HorizontalAlignment="Center" Width="16.378" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Checked="ShowWorkersChecked" Unchecked="ShowWorkersUnchecked" IsChecked="True">
-                <CheckBox.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="2" ScaleY="2"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </CheckBox.RenderTransform>
-            </CheckBox>
-        </DockPanel>
-    </StackPanel>
+            <Label Content="Color Theme(soon)" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" FontSize="20" Foreground="White" VerticalContentAlignment="Center" Grid.Row="3"/>
+            <ComboBox x:Name="colorSelectBox" Grid.Column="1" HorizontalAlignment="Center" Margin="0" Grid.Row="3" VerticalAlignment="Center" Width="120"/>
+        </Grid>
+    </DockPanel>
 </Page>

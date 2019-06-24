@@ -12,7 +12,6 @@ using System.Windows.Resources;
 
 namespace Starcraft_BO_helper
 {
-    [Serializable]
     public class Db
     {
 
@@ -91,6 +90,7 @@ namespace Starcraft_BO_helper
             using (StreamWriter file = new StreamWriter(filePath))
             {
                 IFormatter formatter = new BinaryFormatter();
+
                 formatter.Serialize(file.BaseStream, Instance.skipKey);
                 formatter.Serialize(file.BaseStream, Instance.onlySkipMode);
                 formatter.Serialize(file.BaseStream, Instance.showWorkers);
