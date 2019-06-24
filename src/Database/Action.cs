@@ -23,7 +23,7 @@ namespace Starcraft_BO_helper
                 "Prob",
                 "Drone"
             };
-        public static readonly string regexActionParser = @"^(?:\s*(\d{1,3}){0,1}[^\S\r\n]+){0,1}(\d{1,2}:\d{1,2})\s*([^-\n\r]*)(?:-\s*(.*)){0,1}";
+        public static readonly Regex regexActionParser = new Regex(@"^(?:[^\S\r\n]*(\d{1,3}){0,1}[^\S\r\n]+){0,1}(\d{1,2}:\d{1,2})\s*([^-\n\r]*)(?:-\s*(.*)){0,1}");
 
         private readonly TimeSpan time;
         private readonly String action;
@@ -69,12 +69,11 @@ namespace Starcraft_BO_helper
                 return null;
             }
             /// Split lines like "0:49 Assimilator - commentary" or "11 0:26 Drone x2"
-            string[] splited = Regex.Split(line, Action.regexActionParser);
+            string[] splited = new string[4];
+            Match match = regexActionParser.Match(line);
 
-
-            TimeSpan time = TimeSpan.ParseExact(PreFormatTime(splited[1]), "mm\\:ss" ,CultureInfo.InvariantCulture);
-
-            Action a = new Action(time, splited[2], splited[3]);
+            TimeSpan time = TimeSpan.ParseExact(PreFormatTime(match.Groups[2].ToString()), "mm\\:ss" ,CultureInfo.InvariantCulture);
+            Action a = new Action(time, match.Groups[3].ToString(), match.Groups[4].ToString());
             return a;
         }
 

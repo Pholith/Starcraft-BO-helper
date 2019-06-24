@@ -164,10 +164,10 @@ namespace Starcraft_BO_helper
                 foreach (var line in lines)
                 {
                     // Match these tags without a specific order
-                    var splitedLine = Regex.Split(line, @"^(?=.*(Name|Type|Description|Matchup)\:(.*))(?:.*|\r)", RegexOptions.IgnoreCase);
+                    var splitedLine = Regex.Split(line, @"^(?=.*(Name|Type|Description|Matchup|Author)\:(.*))(?:.*|\r)", RegexOptions.IgnoreCase);
 
                     // Check if the line is a action line
-                    if (Regex.Split(line, Action.regexActionParser).Count() > 2)
+                    if (Action.regexActionParser.IsMatch(line))
                     {
                         actionLines = true;
                     }
