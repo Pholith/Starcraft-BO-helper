@@ -33,10 +33,6 @@ namespace Starcraft_BO_helper
             keyPressed = Db.Instance.skipKey;
             UpdateTextBox();
 
-            // Load the checkbox 
-            onlySkipModeCheckbox.IsChecked = Db.Instance.onlySkipMode;
-            showWorkersCheckbox.IsChecked = Db.Instance.showWorkers;
-
         }
 
 
@@ -88,7 +84,6 @@ namespace Starcraft_BO_helper
         private void UpdateTextBox(object sender, TextChangedEventArgs e)
         {
             UpdateTextBox();
-
         }
         private void TextBox_GotFocus(object sender, MouseEventArgs e)
         {
@@ -96,26 +91,50 @@ namespace Starcraft_BO_helper
             UpdateTextBox();
         }
 
-        // Checkbox
+        // SkipMode Checkbox control
+        private void SkipBoxLoad(object sender, RoutedEventArgs e)
+        {
+            onlySkipModeCheckbox.IsChecked = Db.Instance.onlySkipMode;
+        }
+
         private void OnlySkipModeChecked(object sender, RoutedEventArgs e)
         {
-            Db.Instance.onlySkipMode = true;
-            OnAction();
+            if (showWorkersCheckbox.IsLoaded)
+            {
+                Db.Instance.onlySkipMode = true;
+                OnAction();
+            }
         }
         private void OnlySkipModeUnchecked(object sender, RoutedEventArgs e)
         {
-            Db.Instance.onlySkipMode = false;
-            OnAction();
+            if (showWorkersCheckbox.IsLoaded)
+            {
+                Db.Instance.onlySkipMode = false;
+                OnAction();
+            }
         }
+
+        // Worker checkbox control
+        private void WorkerLewd(object sender, RoutedEventArgs e)
+        {
+            showWorkersCheckbox.IsChecked = Db.Instance.showWorkers;
+        }
+
         private void ShowWorkersChecked(object sender, RoutedEventArgs e)
         {
-            Db.Instance.showWorkers = true;
-            OnAction();
+            if (showWorkersCheckbox.IsLoaded)
+            {
+                Db.Instance.showWorkers = true;
+                OnAction();
+            }
         }
         private void ShowWorkersUnchecked(object sender, RoutedEventArgs e)
         {
-            Db.Instance.showWorkers = false;
-            OnAction();
+            if (showWorkersCheckbox.IsLoaded)
+            {
+                Db.Instance.showWorkers = false;
+                OnAction();
+            }
         }
 
         private void Color_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -131,5 +150,6 @@ namespace Starcraft_BO_helper
         {
             colorSelectBox.SelectedIndex = Db.Instance.Skin;
         }
+
     }
 }

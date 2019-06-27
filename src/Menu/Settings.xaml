@@ -22,7 +22,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <CheckBox x:Name="onlySkipModeCheckbox" Content="" RenderTransformOrigin="0.5,0.5" Checked="OnlySkipModeChecked" Unchecked="OnlySkipModeUnchecked" Margin="0" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" Padding="0" HorizontalAlignment="Center">
+            <CheckBox x:Name="onlySkipModeCheckbox" Content="" RenderTransformOrigin="0.5,0.5" Checked="OnlySkipModeChecked" Unchecked="OnlySkipModeUnchecked" Margin="0" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" Padding="0" HorizontalAlignment="Center" Loaded="SkipBoxLoad">
                 <CheckBox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="2" ScaleY="2"/>
@@ -32,7 +32,7 @@
                     </TransformGroup>
                 </CheckBox.RenderTransform>
             </CheckBox>
-            <CheckBox x:Name="showWorkersCheckbox" Content="" RenderTransformOrigin="0.5,0.5" Checked="ShowWorkersChecked" Unchecked="ShowWorkersUnchecked" IsChecked="True" Margin="0" Grid.Row="2" Grid.Column="1" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <CheckBox x:Name="showWorkersCheckbox" Content="" RenderTransformOrigin="0.5,0.5" Checked="ShowWorkersChecked" Unchecked="ShowWorkersUnchecked" IsChecked="True" Margin="0" Grid.Row="2" Grid.Column="1" Padding="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" Loaded="WorkerLewd">
                 <CheckBox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="2" ScaleY="2"/>
