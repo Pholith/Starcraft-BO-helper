@@ -6,37 +6,35 @@
       xmlns:local="clr-namespace:Starcraft_BO_helper"
       mc:Ignorable="d"
       Title="PlayMenu" Background="#FF1D1D1D" Height="484.64" Width="950.668">
-    <UserControl x:Name="userController">
-        <StackPanel x:Name="stackPanel">
-            <Button Content="🡄" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Height="42.94" Width="46.94" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="BackSelectMenu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,10,0,0"/>
-            <Label x:Name="titleLabel" Content="" Margin="75,0,75,10" Foreground="White" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <DockPanel x:Name="stackPanel1" LastChildFill="False" >
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="100,0,0,0">
-                    <Label Content="Previous" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Width="259.834" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White"/>
-                    <Border BorderBrush="Black" BorderThickness="3" Height="60" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="350">
-                        <Label x:Name="previousLabel" FontSize="16" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0"/>
-                    </Border>
-                </StackPanel>
-                <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,100,0">
-                    <Label Content="Next" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Width="259.834" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White"/>
-                    <Border BorderBrush="Black" BorderThickness="3" Height="60" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="350">
-                        <Label x:Name="nextLabel" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="" Margin="0" FontSize="20"/>
-                    </Border>
-                </StackPanel>
-            </DockPanel>
-            <Border BorderBrush="Black" BorderThickness="3" Height="100" Margin="0,10,0,0" HorizontalAlignment="Center" Width="340" VerticalAlignment="Center">
-                <TextBlock x:Name="timerLabel" Margin="0" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Clic or use skip key to start">
+    <StackPanel x:Name="stackPanel">
+        <Button Content="🡄" FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" Height="42.94" Width="46.94" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="BackSelectMenu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="10,10,0,0"/>
+        <Label x:Name="titleLabel" Content="" Margin="75,0,75,10" Foreground="White" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <DockPanel x:Name="stackPanel1" LastChildFill="False" >
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="100,0,0,0">
+                <Label Content="Previous" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Width="259.834" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White"/>
+                <Border BorderBrush="Black" BorderThickness="3" Height="60" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="350">
+                    <Label x:Name="previousLabel" FontSize="16" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0"/>
+                </Border>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,100,0">
+                <Label Content="Next" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Width="259.834" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White"/>
+                <Border BorderBrush="Black" BorderThickness="3" Height="60" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="350">
+                    <Label x:Name="nextLabel" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="" Margin="0" FontSize="20"/>
+                </Border>
+            </StackPanel>
+        </DockPanel>
+        <Border BorderBrush="Black" BorderThickness="3" Height="100" Margin="0,10,0,0" HorizontalAlignment="Center" Width="340" VerticalAlignment="Center">
+            <TextBlock x:Name="timerLabel" Margin="0" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Clic or use skip key to start">
                 <TextBlock.Foreground>
                     <SolidColorBrush x:Name="solidBorderBrush" Color="White"/>
                 </TextBlock.Foreground>
 
-                </TextBlock>
+            </TextBlock>
 
-            </Border>
-            <Label Content="Actual" Margin="0,15,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Border BorderBrush="Black" BorderThickness="3" Height="90" Margin="0,1,0,0" HorizontalAlignment="Center" Width="800" VerticalAlignment="Center">
-                <Label x:Name="actualLabel" FontSize="26" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,-3,-3"/>
-            </Border>
-        </StackPanel>
-    </UserControl>
+        </Border>
+        <Label Content="Actual" Margin="0,15,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Border BorderBrush="Black" BorderThickness="3" Height="90" Margin="0,1,0,0" HorizontalAlignment="Center" Width="800" VerticalAlignment="Center">
+            <Label x:Name="actualLabel" FontSize="26" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,-3,-3"/>
+        </Border>
+    </StackPanel>
 </Page>

@@ -4,7 +4,6 @@
              xmlns:local="clr-namespace:Starcraft_BO_helper"
              StartupUri="src/MainWindow.xaml">
 
-  <Application.Resources>
-
-  </Application.Resources>
+    <Application.Resources>
+    </Application.Resources>
 </Application>

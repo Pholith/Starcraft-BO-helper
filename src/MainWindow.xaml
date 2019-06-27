@@ -5,5 +5,5 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Starcraft_BO_helper"
         mc:Ignorable="d"
-        Title="MainWindow" Height="594" Width="959" Background="#FF252526" Visibility="Visible" KeyDown="KeyPressed"/>
+        Title="Starcraft BuildOrder Helper" Height="594" Width="959" Background="#FF252526" Visibility="Visible" KeyDown="KeyPressed"/>
     

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Starcraft_BO_helper"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d"
       Title="Settings" Height="610" Width="957.926" Background="#FF2C2C2C">
     <DockPanel Loaded="Loaded" UseLayoutRounding="False" >
@@ -47,8 +48,15 @@
             <Border BorderBrush="Black" BorderThickness="3" Height="43" VerticalAlignment="Center" HorizontalAlignment="Center" Width="190" Margin="0" Grid.Column="1">
                 <TextBox x:Name="textBox" FontSize="14" Background="#FFEAEAEA" VerticalContentAlignment="Center" Text="&#xA;" KeyDown="KeyPressed" KeyUp="KeyUnpressed" TabIndex="2147483646" TextChanged="UpdateTextBox" AllowDrop="False" IsUndoEnabled="False" IsReadOnly="True" GotMouseCapture="TextBox_GotFocus" Margin="0" d:IsLocked="True"/>
             </Border>
-            <Label Content="Color Theme(soon)" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" FontSize="20" Foreground="White" VerticalContentAlignment="Center" Grid.Row="3"/>
-            <ComboBox x:Name="colorSelectBox" Grid.Column="1" HorizontalAlignment="Center" Margin="0" Grid.Row="3" VerticalAlignment="Center" Width="120"/>
+            <Label Content="Color Theme" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0" FontSize="20" Foreground="White" VerticalContentAlignment="Center" Grid.Row="3"/>
+            <ComboBox x:Name="colorSelectBox" Grid.Column="1" Margin="0" Grid.Row="3" Width="140" SelectionChanged="Color_SelectionChanged" Foreground="Black" SelectedIndex="0" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" BorderBrush="Black" Loaded="ColorSelectLoaded" VerticalAlignment="Center" IsReadOnly="True" IsEditable="True" HorizontalAlignment="Center" UseLayoutRounding="False" ScrollViewer.CanContentScroll="True">
+                <ComboBoxItem Foreground="Black" Background="{x:Null}" Height="30" BorderBrush="Black" VerticalContentAlignment="Center" Padding="5,1" UseLayoutRounding="False" d:IsLocked="True">Light</ComboBoxItem>
+                <ComboBoxItem Foreground="Black" Background="{x:Null}" Height="30" BorderBrush="Black" VerticalContentAlignment="Center" Padding="5,1" UseLayoutRounding="False" d:IsLocked="True">Dark</ComboBoxItem>
+                <ComboBoxItem Foreground="Black" Background="{x:Null}" Height="30" BorderBrush="Black" VerticalContentAlignment="Center" Padding="5,1" UseLayoutRounding="False" d:IsLocked="True">Terran</ComboBoxItem>
+                <ComboBoxItem Foreground="Black" Background="{x:Null}" Height="30" BorderBrush="Black" VerticalContentAlignment="Center" Padding="5,1" UseLayoutRounding="False" d:IsLocked="True">Zerg</ComboBoxItem>
+                <ComboBoxItem Foreground="Black" Background="{x:Null}" Height="30" Content="Protoss" BorderBrush="Black" VerticalContentAlignment="Center" Padding="5,1" UseLayoutRounding="False" d:IsLocked="True"/>
+
+            </ComboBox>
         </Grid>
     </DockPanel>
 </Page>

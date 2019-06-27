@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +12,7 @@ namespace Starcraft_BO_helper
     /// </summary>
     public partial class Settings : Page
     {
+
         public Settings()
         {
             InitializeComponent();
@@ -24,6 +26,7 @@ namespace Starcraft_BO_helper
         {
             Db.Save();
         }
+
         private new void Loaded(object sender, RoutedEventArgs e)
         {
             // Load the textBox
@@ -33,6 +36,7 @@ namespace Starcraft_BO_helper
             // Load the checkbox 
             onlySkipModeCheckbox.IsChecked = Db.Instance.onlySkipMode;
             showWorkersCheckbox.IsChecked = Db.Instance.showWorkers;
+
         }
 
 
@@ -112,6 +116,20 @@ namespace Starcraft_BO_helper
         {
             Db.Instance.showWorkers = false;
             OnAction();
+        }
+
+        private void Color_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (colorSelectBox.IsLoaded)
+            {
+                Db.Instance.Skin = colorSelectBox.SelectedIndex;
+                OnAction();
+            }
+        }
+        
+        private void ColorSelectLoaded(object sender, RoutedEventArgs e)
+        {
+            colorSelectBox.SelectedIndex = Db.Instance.Skin;
         }
     }
 }

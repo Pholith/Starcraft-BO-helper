@@ -5,75 +5,69 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Starcraft_BO_helper"
       mc:Ignorable="d"
-      Title="Select" Background="#FF474747" Height="564" Width="960">
+      Title="Select" Background="Transparent" Height="564" Width="960">
 
+    <DockPanel x:Name="dockPanel" LastChildFill="False" Background="#00000000" Margin="10">
 
-    <DockPanel x:Name="dockPanel" LastChildFill="False" Background="#FF252526">
-
-        <Button Content="🡄" FontSize="22" VerticalAlignment="Top" Height="42.94" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="BackMenu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" DockPanel.Dock="Top" Margin="10,10,0,0" Width="46.94" HorizontalAlignment="Left"/>
-        <TabPanel x:Name="tabPanel" Margin="5,10,545.12,-10" Height="437" DockPanel.Dock="Top" Width="410" MinWidth="410">
-            <TabControl x:Name="tabControl" Background="{x:Null}" BorderBrush="{x:Null}" Margin="46.325,-0.834,-46.325,0.834" RenderTransformOrigin="0.5,0.5" HorizontalContentAlignment="Center" VerticalContentAlignment="Top" HorizontalAlignment="Left" Width="381.267">
-                <TabControl.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleY="0.361"/>
-                        <RotateTransform/>
-                        <TranslateTransform Y="0.744"/>
-                    </TransformGroup>
-                </TabControl.RenderTransform>
-                <TabItem x:Name="allTab" Header="All" BorderBrush="#FF363636" IsSelected="True" Margin="0,0,-41.75,0" FontSize="14" d:IsLocked="True">
-                    <TabItem.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFE8E8E8" Offset="0"/>
-                            <GradientStop Color="#FF727272" Offset="1"/>
-                        </LinearGradientBrush>
-                    </TabItem.Background>
-                    <ListBox x:Name="allList" Margin="0,1,-14,0" Background="#FF7C7C7C" BorderBrush="#FF272727" MinHeight="400" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="UpdateSelection"/>
-                </TabItem>
-                <TabItem x:Name="zergTab" Header="Zerg" BorderBrush="#FF363636" IsSelected="True" Margin="41,0,-86.75,0" FontSize="14" d:IsLocked="True">
-                    <TabItem.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFE8E8E8" Offset="0"/>
-                            <GradientStop Color="#FF727272" Offset="1"/>
-                        </LinearGradientBrush>
-                    </TabItem.Background>
-                    <ListBox x:Name="zergList" Width="389.267" Margin="0,1,-54.688,0" Background="#FF7C7C7C" BorderBrush="#FF272727" MinHeight="400" HorizontalAlignment="Left" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="UpdateSelection" Height="400"/>
-                </TabItem>
-                <TabItem x:Name="terranTab" Header="Terran" BorderBrush="#FF363636" IsSelected="True" Margin="86,0,-137.75,0" FontSize="14" Height="22.62" VerticalAlignment="Top" d:IsLocked="True">
-                    <TabItem.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFE8E8E8" Offset="0"/>
-                            <GradientStop Color="#FF727272" Offset="1"/>
-                        </LinearGradientBrush>
-                    </TabItem.Background>
-                    <ListBox x:Name="terranList" Width="389.267" Margin="0,1,-54.688,0" Background="#FF7C7C7C" BorderBrush="#FF272727" MinHeight="400" HorizontalAlignment="Left" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="UpdateSelection" Height="400"/>
-                </TabItem>
-                <TabItem x:Name="protossTab" Header="Protoss" BorderBrush="#FF363636" IsSelected="True" Margin="134.49,0,-184.28,0" FontSize="14" Height="22.62" VerticalAlignment="Top">
-                    <TabItem.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFE8E8E8" Offset="0"/>
-                            <GradientStop Color="#FF727272" Offset="1"/>
-                        </LinearGradientBrush>
-                    </TabItem.Background>
-                    <ListBox x:Name="protossList" Width="389.267" Margin="0,1,-54.688,0" Background="#FF7C7C7C" BorderBrush="#FF272727" MinHeight="400" HorizontalAlignment="Left" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="UpdateSelection" Height="400"/>
-                </TabItem>
-            </TabControl>
-
-        </TabPanel>
-        <StackPanel x:Name="stackPanel" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="55,10,-92.325,0" Width="377.88">
-            <Button x:Name="playButton" Content="Play" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Height="45.94" Margin="0" Width="148.44" Background="#FFBBBBBB" Foreground="Black" BorderBrush="Black" Click="PlaySelected" IsEnabled="False"/>
-            <Button x:Name="deleteButton" Content="Delete" FontSize="18" VerticalAlignment="Center" Height="45.94" Margin="95,0,0,0" Width="135.44" Background="#FFBBBBBB" Foreground="Black" BorderBrush="Black" Click="DeleteSelected" IsEnabled="False" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
-        </StackPanel>
-        <StackPanel Height="427" VerticalAlignment="Top" Margin="108,-427,10,0" DockPanel.Dock="Top">
-            <Label x:Name="boNamePreview" Content="No BO selected" Height="26" VerticalAlignment="Center" RenderTransformOrigin="0.598,0.579" HorizontalContentAlignment="Center" Margin="0,0,0,4" HorizontalAlignment="Center" Width="300">
-                <Label.Background>
+        <Button Content="🡄" FontSize="22" VerticalAlignment="Top" Height="42.94" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="BackMenu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" DockPanel.Dock="Top" Margin="0" Width="46.94" HorizontalAlignment="Left"/>
+        <TabControl x:Name="tabControl" Margin="0,10,0,0" Background="{x:Null}" Width="340" HorizontalAlignment="Left" SelectionChanged="TabControl_SelectionChanged">
+            <TabItem
+        x:Name="allTab" Margin="0" IsSelected="True" Header="All" FontSize="14" BorderBrush="#FF363636">
+                <TabItem.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFE8E8E8" Offset="0"/>
-                        <GradientStop Color="#FF727272" Offset="1"/>
+                        <GradientStop Color="#FF535353" Offset="1"/>
                     </LinearGradientBrush>
-                </Label.Background>
-            </Label>
-            <ListBox x:Name="selectedBOPreview" Background="#FF7C7C7C" Height="411" VerticalAlignment="Top" BorderBrush="{x:Null}" Margin="0,0,8.445,0"/>
+                </TabItem.Background>
+                <ListBox
+        VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="UpdateSelection" x:Name="allList" MinHeight="400" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+            </TabItem>
+            <TabItem x:Name="zergTab" Margin="0" IsSelected="True" Header="Zerg" FontSize="14" BorderBrush="#FF363636">
+                <TabItem.Background
+        >
+                    <LinearGradientBrush
+        EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop
+        Color="#FFE8E8E8" Offset="0"/>
+                        <GradientStop
+        Color="#FFC317DE" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <ListBox VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="UpdateSelection" x:Name="zergList" MinHeight="400" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White">
+                </ListBox>
+            </TabItem>
+            <TabItem x:Name="terranTab" Margin="0" IsSelected="True" Height="23" Header="Terran" FontSize="14" BorderBrush="#FF363636">
+                <TabItem.Background
+        >
+                    <LinearGradientBrush
+        EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop
+        Color="#FFE8E8E8" Offset="0"/>
+                        <GradientStop
+        Color="#FF4762E0" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <ListBox VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="UpdateSelection" x:Name="terranList" MinHeight="400" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White">
+                </ListBox>
+
+            </TabItem>
+            <TabItem x:Name="protossTab" Margin="0" IsSelected="True" Header="Protoss" FontSize="14" BorderBrush="#FF363636">
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFDAE40E" Offset="1"/>
+                        <GradientStop Color="White"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <ListBox VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionChanged="UpdateSelection" x:Name="protossList" MinHeight="400" Margin="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
+            </TabItem>
+        </TabControl>
+        <DockPanel x:Name="dockPanel1" Margin="10,0,0,0" DockPanel.Dock="Bottom" LastChildFill="False">
+            <Button x:Name="playButton" Content="Play" FontSize="18" Margin="20,0,0,0" Width="130" Background="#FFBBBBBB" Foreground="Black" BorderBrush="Black" Click="PlaySelected" IsEnabled="False" Height="40" HorizontalAlignment="Center"/>
+            <Button x:Name="deleteButton" Content="Delete" FontSize="18" Margin="0,0,20,0" Background="#FFBBBBBB" Foreground="Black" BorderBrush="Black" Click="DeleteSelected" IsEnabled="False" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalContentAlignment="Center" Width="130" DockPanel.Dock="Right" Height="40"/>
+        </DockPanel>
+        <StackPanel x:Name="stackPanel" Margin="0,10" DockPanel.Dock="Right" Width="561" Height="430" d:IsLocked="True">
+            <Label x:Name="boNamePreview" Content="No BO selected" VerticalAlignment="Center" RenderTransformOrigin="0.496,0.462" HorizontalContentAlignment="Center" Background="{x:Null}" VerticalContentAlignment="Center" Height="30"/>
+            <ListBox x:Name="selectedBOPreview" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0" SelectionChanged="SelectedBOPreview_SelectionChanged" Height="390"/>
         </StackPanel>
     </DockPanel>
 </Page>

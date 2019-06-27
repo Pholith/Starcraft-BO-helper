@@ -7,7 +7,7 @@
       mc:Ignorable="d"
       Title="BuildOrderMenu" Height="510" Width="960">
 
-    <DockPanel Background="#FF343434">
+    <DockPanel>
         <Button Content="🡄" FontSize="22" VerticalAlignment="Top" Height="42.94" Background="#FF252525" Foreground="White" BorderBrush="Black" Click="BackMenu" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" DockPanel.Dock="Top" Margin="10,10,0,0" Width="46.94" HorizontalAlignment="Left"/>
 
     </DockPanel>

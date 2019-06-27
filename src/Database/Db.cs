@@ -4,14 +4,11 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Markup;
-using System.Windows.Resources;
 
 namespace Starcraft_BO_helper
 {
+    [Serializable]
     public class Db
     {
 
@@ -42,14 +39,37 @@ namespace Starcraft_BO_helper
         public List<Key> skipKey = new List<Key>() { Key.LeftCtrl, Key.D };
         public bool onlySkipMode = false;
         public bool showWorkers = true;
-
-
-        private Db(List<Key> skipKey, bool onlySkipMode, bool showWorkers)
+        protected int skin = 0;
+        public int Skin
         {
-            this.skipKey = skipKey;
-            this.onlySkipMode = onlySkipMode;
-            this.showWorkers = showWorkers;
+            get
+            {
+                return skin;
+            }
+            set
+            {
+                skin = value;
+                skinManager.ChangeColor(skin);
+                skinManager.UpdateWindowSkin();
+            }
         }
+
+        // Managers auto instanciate when needed
+        [NonSerialized]
+        private SkinManager skinManager;
+        public SkinManager SkinManager
+        {
+            get
+            {
+                if (skinManager == null)
+                {
+                    skinManager = new SkinManager(skin);
+                }
+                return skinManager;
+            }
+        }
+
+        // Constructors
         private Db()
         {
 
@@ -63,20 +83,28 @@ namespace Starcraft_BO_helper
             string filePath = Path.Combine(directory, fileName);
 
             // If File exists, read, else create a empty database
-            if (File.Exists(filePath))
+            try
             {
-                using (StreamReader file = new StreamReader(filePath))
+                if (File.Exists(filePath))
                 {
-                    IFormatter formatter = new BinaryFormatter();
-                    List<Key> skipKey = (List<Key>) formatter.Deserialize(file.BaseStream);
-                    bool onlySkipMode = (bool) formatter.Deserialize(file.BaseStream);
-                    bool showWorkers = (bool) formatter.Deserialize(file.BaseStream);
-                    Console.WriteLine("Database loaded from file.");
-                    _instance = new Db(skipKey, onlySkipMode, showWorkers);
+                    using (StreamReader file = new StreamReader(filePath))
+                    {
+                        IFormatter formatter = new BinaryFormatter();
+
+                        _instance = (Db)formatter.Deserialize(file.BaseStream);
+
+                        Console.WriteLine("Database loaded from file.");
+                    }
                 }
-            } else
+                else
+                {
+                    File.Delete(filePath);
+                    throw new IOException();
+                }
+            }
+            catch (Exception)
             {
-                Console.WriteLine("Database file not found. Creating a new Database.");
+                Console.WriteLine("Database file not found or old version. Creating a new Database.");
                 _instance = new Db();
             }
         }
@@ -91,11 +119,10 @@ namespace Starcraft_BO_helper
             {
                 IFormatter formatter = new BinaryFormatter();
 
-                formatter.Serialize(file.BaseStream, Instance.skipKey);
-                formatter.Serialize(file.BaseStream, Instance.onlySkipMode);
-                formatter.Serialize(file.BaseStream, Instance.showWorkers);
+                formatter.Serialize(file.BaseStream, Instance);
             }
             Console.WriteLine("Successfully saved database.");
         }
+
     }
 }

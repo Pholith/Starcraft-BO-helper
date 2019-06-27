@@ -97,10 +97,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\BrushExtension.cs" />
     <Compile Include="src\Database\Action.cs" />
     <Compile Include="src\Database\BuildOrder.cs" />
     <Compile Include="src\Database\BuildOrderReader.cs" />
     <Compile Include="src\Database\Db.cs" />
+    <Compile Include="src\DepedencyObjectExtension.cs" />
     <Compile Include="src\KeyboardListener.cs" />
     <Compile Include="src\Menu\BuildOrderMenu.xaml.cs">
       <DependentUpon>BuildOrderMenu.xaml</DependentUpon>
@@ -114,6 +116,7 @@
     <Compile Include="src\Menu\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="src\SkinManager.cs" />
     <Compile Include="src\Switcher.cs" />
     <Compile Include="src\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -154,7 +157,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.md" />
-    <None Include="src\App.config" />
+    <None Include="src\App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

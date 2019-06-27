@@ -77,9 +77,9 @@ namespace Starcraft_BO_helper
             labels[i].Content = newAction.ToString();
         }
 
-        private readonly DoubleAnimation fontSizeAnimation;
-        private readonly DoubleAnimation fontSizeAnimationActualL;
-        private readonly ColorAnimation colorAnimation;
+        private DoubleAnimation fontSizeAnimation;
+        private DoubleAnimation fontSizeAnimationActualL;
+        private ColorAnimation colorAnimation;
 
         private readonly Page page;
         private readonly List<Label> labels;
@@ -119,20 +119,6 @@ namespace Starcraft_BO_helper
             listOfActions.Remove(NextAction);
 
             // Time setup
-
-            // Animation on timer label
-            colorAnimation = new ColorAnimation(Colors.White, Colors.Red, TimeSpan.FromMilliseconds(800))
-            {
-                AutoReverse = true
-            };
-            fontSizeAnimation = new DoubleAnimation(fontSize, fontSize + 6, TimeSpan.FromMilliseconds(800))
-            {
-                AutoReverse = true
-            };
-            fontSizeAnimationActualL = new DoubleAnimation(labels[1].FontSize, labels[1].FontSize + 4, TimeSpan.FromMilliseconds(500))
-            {
-                AutoReverse = true
-            };
         }
 
         // Start the clock
@@ -146,6 +132,21 @@ namespace Starcraft_BO_helper
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1); // Delay before each event
             dispatcherTimer.Start();
             playStarted = true;
+
+            // Animation on timer label
+            colorAnimation = new ColorAnimation(timerLabel.Foreground.GetColor(), Colors.Red, TimeSpan.FromMilliseconds(800))
+            {
+                AutoReverse = true
+            };
+            fontSizeAnimation = new DoubleAnimation(fontSize, fontSize + 6, TimeSpan.FromMilliseconds(800))
+            {
+                AutoReverse = true
+            };
+            fontSizeAnimationActualL = new DoubleAnimation(labels[1].FontSize, labels[1].FontSize + 4, TimeSpan.FromMilliseconds(500))
+            {
+                AutoReverse = true
+            };
+
         }
         // Return true of the reader started
         public bool Started()
