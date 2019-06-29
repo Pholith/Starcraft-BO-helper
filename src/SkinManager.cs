@@ -41,7 +41,7 @@ namespace Starcraft_BO_helper
                 {
                     //Console.WriteLine(control.ToString());
                     ((Control)control).Foreground = new SolidColorBrush(colorList[0]);
-                    if (!(control is Label))
+                    if (!(control is Label) && (!(control is GroupBox)))
                     {
                         ((Control)control).Background = new SolidColorBrush(colorList[1]);
                     }

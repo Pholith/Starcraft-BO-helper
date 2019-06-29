@@ -29,6 +29,5 @@ namespace Starcraft_BO_helper
         {
             Switcher.SwitchPage(new MainMenu());
         }
-
     }
 }
