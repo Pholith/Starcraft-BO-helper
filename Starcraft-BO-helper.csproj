@@ -98,7 +98,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\BrushExtension.cs" />
-    <Compile Include="src\Class1.cs" />
+    <Compile Include="src\TextBox.cs" />
     <Compile Include="src\Database\Action.cs" />
     <Compile Include="src\Database\BuildOrder.cs" />
     <Compile Include="src\Database\BuildOrderReader.cs" />

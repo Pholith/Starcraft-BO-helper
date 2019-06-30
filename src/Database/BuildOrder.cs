@@ -53,7 +53,7 @@ namespace Starcraft_BO_helper
         {
             if (metaDatas == null || string.IsNullOrWhiteSpace(name) || listOfAction == null)
             {
-                throw new ArgumentNullException();
+                throw new Exception("Fields with an * must be filled");
             }
             // Check if required data are set
             foreach (var item in requiredDatas)
@@ -76,8 +76,8 @@ namespace Starcraft_BO_helper
             }
 
             // Throw ArgumentException if race string is not valide
-            string[] splitedMatchup = Regex.Split(metaDatas["matchup"], @"[^\S\r\n]*([ZTPX])V[ZTPX][^\S\r\n]*", RegexOptions.IgnoreCase);
-            if (splitedMatchup.Count() < 1)
+            string[] splitedMatchup = Regex.Split(metaDatas["matchup"], @"[^\S\r\n]*([ZTP])V[ZTPX][^\S\r\n]*", RegexOptions.IgnoreCase);
+            if (splitedMatchup.Count() < 2)
             {
                 throw new ArgumentException("Can't Parse the BO. Matchup field can't be empty.");
             }
@@ -204,7 +204,7 @@ namespace Starcraft_BO_helper
         }
 
         //Create a custom BO from the BuildOrderMenu
-        public static Boolean CreateAndSaveBO(string name, string type, string description, string matchup, List<Action> actionList)
+        public static void CreateAndSaveBO(string name, string type, string description, string matchup, List<Action> actionList)
         {
             Dictionary<string, string> metaData = new Dictionary<string, string>
                 {
@@ -214,18 +214,9 @@ namespace Starcraft_BO_helper
                     { "matchup", matchup }
                 };
             BuildOrder bo;
-            try
-            {
-                bo = new BuildOrder(name, actionList, metaData);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error during creation of BO. " + e.ToString());
-                return false;
-            }
+            bo = new BuildOrder(name, actionList, metaData);
 
             SaveBO(bo);
-            return true;
         }
             // Read a BO file
             public static BuildOrder ReadBO(string pathSrc)

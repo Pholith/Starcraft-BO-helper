@@ -83,10 +83,14 @@ namespace Starcraft_BO_helper
             {
                 playButton.IsEnabled = false;
                 deleteButton.IsEnabled = false;
+                modifyButton.IsEnabled = false;
+                copyButton.IsEnabled = false;
                 return;
             }
             playButton.IsEnabled = true;
             deleteButton.IsEnabled = true;
+            modifyButton.IsEnabled = true;
+            copyButton.IsEnabled = true;
 
             // BO preview
             selectedBOPreview.Items.Clear();

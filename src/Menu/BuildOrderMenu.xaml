@@ -14,8 +14,8 @@
                 <Label x:Name="boNamePreview" Content="BO Preview" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" HorizontalContentAlignment="Center" Background="{x:Null}" VerticalContentAlignment="Center" Height="23.667"/>
                 <ListBox x:Name="actionsBOPreview" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0" VerticalContentAlignment="Center" Height="500"/>
             </StackPanel>
-            <StackPanel x:Name="userInteraction" Height="447" VerticalAlignment="Top" Width="304" DockPanel.Dock="Right" Margin="20,0,0,0">
-                <StackPanel x:Name="importButtons" Height="24" Orientation="Horizontal" Margin="0,0,0,10" d:IsLocked="True">
+            <StackPanel x:Name="userInteraction" Height="469" VerticalAlignment="Top" Width="304" DockPanel.Dock="Right" Margin="20,0,0,-22">
+                <StackPanel x:Name="importButtons" Height="24" Orientation="Horizontal" Margin="0,0,0,10">
                     <Button x:Name="importFileButton" Content="Import from file" VerticalContentAlignment="Center" Width="135"/>
                     <Button x:Name="importClipboardButton" Content="Import from clipboard" Width="135" HorizontalAlignment="Right" Margin="33.6,0,0,0"/>
                 </StackPanel>
@@ -23,36 +23,35 @@
                     <StackPanel Margin="10,10,10,9.9">
                         <StackPanel Height="66">
                             <StackPanel Height="33" VerticalAlignment="Top" Orientation="Horizontal">
-                                <local:TextBox x:Name="nameBox" TextWrapping="Wrap" Text="Title" Width="272" Height="22" TextChanged="TextBox_TextChanged"/>
+                                <local:TextBox x:Name="nameBox" TextWrapping="Wrap" Width="272" Height="22" PlaceholderText="Title*"/>
                             </StackPanel>
                             <StackPanel Height="33" VerticalAlignment="Top" Orientation="Horizontal">
-                                <TextBox x:Name="authorBox" Height="22" TextWrapping="Wrap" Text="Author" Margin="0,6,5,5" Width="110" HorizontalAlignment="Left"/>
-                                <TextBox x:Name="typeBox" Height="22" TextWrapping="Wrap" Text="Type" Margin="0,6,5,5" Width="75" HorizontalAlignment="Left"/>
-                                <TextBox x:Name="matchupBox" Height="22" TextWrapping="Wrap" Text="Matchup" Margin="0,6,5,5" Width="77" HorizontalAlignment="Left"/>
+                                <local:TextBox x:Name="authorBox" Height="22" TextWrapping="Wrap" Margin="0,6,5,5" Width="110" HorizontalAlignment="Left" PlaceholderText="Author"/>
+                                <local:TextBox x:Name="typeBox" Height="22" TextWrapping="Wrap" Margin="0,6,5,5" Width="75" HorizontalAlignment="Left" PlaceholderText="Type" IsReadOnlyCaretVisible="True"/>
+                                <local:TextBox x:Name="matchupBox" Height="22" TextWrapping="Wrap" Margin="0,6,5,5" Width="77" HorizontalAlignment="Left" PlaceholderText="MatchUp*"/>
                             </StackPanel>
                         </StackPanel>
-                       
-                        <TextBox x:Name="boCommentBox" Height="120" Text="Description" TextWrapping="Wrap"/>
+
+                        <local:TextBox x:Name="boCommentBox" Height="120" TextWrapping="Wrap" PlaceholderText="Description"/>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Actions" Height="125" Margin="0,0,0,10">
                     <StackPanel Margin="10,10,10,13">
                         <StackPanel Height="41" VerticalAlignment="Top" Orientation="Horizontal">
-                            <TextBox x:Name="timeBox" TextWrapping="Wrap" Text="Time" Margin="0,10,5,10" Width="45" HorizontalAlignment="Left"/>
-                            <TextBox x:Name="actionBox" TextWrapping="Wrap" Text="Action" Margin="0,10,5,10" Width="82" HorizontalAlignment="Left"/>
-                            <TextBox x:Name="actionCommentBox" TextWrapping="Wrap" Text="Optionnal description" Margin="0,10,5,10" Width="135" HorizontalAlignment="Left"/>
+                            <local:TextBox x:Name="timeBox" TextWrapping="Wrap" Margin="0,10,5,10" Width="45" HorizontalAlignment="Left" PlaceholderText="Time*"/>
+                            <local:TextBox x:Name="actionBox" TextWrapping="Wrap" Margin="0,10,5,10" Width="82" HorizontalAlignment="Left" PlaceholderText="Step*"/>
+                            <local:TextBox x:Name="actionCommentBox" TextWrapping="Wrap" Margin="0,10,5,10" Width="135" HorizontalAlignment="Left" PlaceholderText="Optionnal description"/>
                         </StackPanel>
-                        <StackPanel Height="41" VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="addButton" Content="Add action" Width="86" Margin="0,10" Click="addAction"/>
-                            <Button x:Name="removeButton" Content="Remove selected action" Width="134" Margin="40,10,0,10" Click="removeSelectedAction"/>
+                        <StackPanel Height="41" VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Center" Width="274" Margin="0,0,-2,0">
+                            <Button x:Name="addButton" Content="Add action" Width="68" Margin="0,10" Click="addAction"/>
+                            <Button x:Name="modifyButton" Content="Modify action" Width="77" Margin="22,10,0,10" Click="ModifySelectedAction"/>
+                            <Button x:Name="removeButton" Content="Remove action" Width="83" Margin="22,10,0,10" Click="removeSelectedAction"/>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
-                <StackPanel Height="33" Orientation="Horizontal">
-                    <Label x:Name="feedbackLabel" Content="" Width="164" RenderTransformOrigin="0.5,0.5" Padding="5" Margin="5,0,0,0">
-                        
-                    </Label>
-                    <Button x:Name="saveButton" Content="Save" Margin="50,0,0,0" Width="86" Click="Saving"/>
+                <StackPanel Height="60" Orientation="Horizontal">
+                    <TextBlock x:Name="feedbackTextBlock" Width="200" RenderTransformOrigin="0.5,0.5" Padding="5" Margin="5,0,0,0" TextWrapping="WrapWithOverflow" Foreground="White"/>
+                    <Button x:Name="saveButton" Content="Save" Margin="13,0,0,29" Width="86" Click="Saving"/>
                 </StackPanel>
             </StackPanel>
         </DockPanel>

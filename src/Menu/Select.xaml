@@ -61,10 +61,12 @@
                 </TabItem>
             </TabControl>
             <StackPanel x:Name="boButtons" DockPanel.Dock="Bottom" Orientation="Horizontal" Width="{Binding ActualWidth, ElementName=preview}" HorizontalAlignment="Right" >
-                <Button x:Name="playButton" Content="Play" FontSize="18" Width="130" Background="#FFBBBBBB" Foreground="Black" BorderBrush="Black" Click="PlaySelected" IsEnabled="False" Height="40" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center"/>
-                <Button x:Name="deleteButton" Content="Delete" FontSize="18" Background="#FFBBBBBB" Foreground="Black" BorderBrush="Black" Click="DeleteSelected" IsEnabled="False" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalContentAlignment="Center" Width="130" Height="40" VerticalAlignment="Center" Margin="300,0,0,0"/>
+                <Button x:Name="playButton" Content="Play" FontSize="18" Width="105" Background="#FFBBBBBB" Foreground="Black" BorderBrush="Black" Click="PlaySelected" IsEnabled="False" Height="40" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center"/>
+                <Button x:Name="deleteButton" Content="Delete" FontSize="18" Background="#FFBBBBBB" Foreground="Black" BorderBrush="Black" Click="DeleteSelected" IsEnabled="False" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalContentAlignment="Center" Width="97" Height="40" VerticalAlignment="Center" Margin="50,0,0,0"/>
+                <Button x:Name="modifyButton" Content="Modify" Width="105" Margin="50,0,0,0" FontSize="18" IsEnabled="False"/>
+                <Button x:Name="copyButton" Content="Copy to clipboard" Width="105" Margin="50,0,0,0" IsEnabled="False"/>
             </StackPanel>
-            <StackPanel x:Name="preview" Margin="40,10,0,15.53" DockPanel.Dock="Right" Width="561">
+            <StackPanel x:Name="preview" Margin="40,10,0,15.53" DockPanel.Dock="Right" Width="561" d:IsLocked="True">
                 <Label x:Name="boNamePreview" Content="No BO selected" VerticalAlignment="Center" RenderTransformOrigin="0.496,0.462" HorizontalContentAlignment="Center" Background="{x:Null}" VerticalContentAlignment="Center" Height="27"/>
                 <ListBox x:Name="selectedBOPreview" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0" SelectionChanged="SelectedBOPreview_SelectionChanged" VerticalContentAlignment="Center" Height="4000"/>
             </StackPanel>

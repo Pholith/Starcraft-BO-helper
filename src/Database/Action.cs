@@ -50,7 +50,7 @@ namespace Starcraft_BO_helper
         }
 
         // Add a 0 if the time format is m:ss
-        private static string PreFormatTime(string time)
+        public static string PreFormatTime(string time)
         {
             string[] splitedTime = Regex.Split(time, @"(\d{1,2}):(\d\d)");
 
@@ -112,6 +112,25 @@ namespace Starcraft_BO_helper
                 toFormat = string.Concat(toFormat, " - ", comment);
             }
             return toFormat;
-        }    	  
+        }
+
+
+        public static Action CreateAction(String timer, String step, String comment)
+        {
+            //error feedback
+            if (String.IsNullOrWhiteSpace(timer))
+            {
+                throw new ArgumentException("The addition failed, Time has an invalid format");
+            }
+
+            if (String.IsNullOrWhiteSpace(step))
+            {
+                throw new ArgumentException("The addition failed, Step has an invalid format");
+            }
+
+            TimeSpan time = TimeSpan.ParseExact(Action.PreFormatTime(timer), "mm\\:ss", CultureInfo.InvariantCulture);
+            Action action = new Action(time, step, comment);
+            return action;
+        }
     }
 }
