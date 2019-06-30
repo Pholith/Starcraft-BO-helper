@@ -10,7 +10,7 @@ using System.Windows;
 namespace Starcraft_BO_helper
 {
     // Action of a bo
-    internal class Action
+    public class Action
     {
 
         private static readonly List<string> probsName = new List<string>
@@ -72,7 +72,7 @@ namespace Starcraft_BO_helper
             string[] splited = new string[4];
             Match match = regexActionParser.Match(line);
 
-            TimeSpan time = TimeSpan.ParseExact(PreFormatTime(match.Groups[2].ToString()), "mm\\:ss" ,CultureInfo.InvariantCulture);
+            TimeSpan time = TimeSpan.ParseExact(PreFormatTime(match.Groups[2].ToString()), "mm\\:ss", CultureInfo.InvariantCulture);
             Action a = new Action(time, match.Groups[3].ToString(), match.Groups[4].ToString());
             return a;
         }

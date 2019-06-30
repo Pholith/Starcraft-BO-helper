@@ -132,7 +132,7 @@ namespace Starcraft_BO_helper
         // Remove a BO from the file system
         internal static void DeleteBO(BuildOrder selectedItem)
         {
-            string directory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string directory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\saves_bo\\";
             string path = string.Concat(directory, selectedItem.ToPath());
 
             if (!File.Exists(path))
@@ -203,8 +203,32 @@ namespace Starcraft_BO_helper
             return bo;
         }
 
-        // Read a BO file
-        public static BuildOrder ReadBO(string pathSrc)
+        //Create a custom BO from the BuildOrderMenu
+        public static Boolean CreateAndSaveBO(string name, string type, string description, string matchup, List<Action> actionList)
+        {
+            Dictionary<string, string> metaData = new Dictionary<string, string>
+                {
+                    { "name", name },
+                    { "type", type },
+                    { "description", description },
+                    { "matchup", matchup }
+                };
+            BuildOrder bo;
+            try
+            {
+                bo = new BuildOrder(name, actionList, metaData);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error during creation of BO. " + e.ToString());
+                return false;
+            }
+
+            SaveBO(bo);
+            return true;
+        }
+            // Read a BO file
+            public static BuildOrder ReadBO(string pathSrc)
         {
             if (!File.Exists(pathSrc))
             {

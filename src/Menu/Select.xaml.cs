@@ -63,6 +63,7 @@ namespace Starcraft_BO_helper
                 terranList.Items.Remove(selectedItem);
                 protossList.Items.Remove(selectedItem);
                 zergList.Items.Remove(selectedItem);
+                selectedBOPreview.Items.Clear();
             }
         }
 
