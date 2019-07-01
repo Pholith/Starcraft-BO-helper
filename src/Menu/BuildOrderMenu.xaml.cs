@@ -23,6 +23,24 @@ namespace Starcraft_BO_helper
             InitializeComponent();
         }
 
+        public BuildOrderMenu(BuildOrder bo)
+        {
+            InitializeComponent();
+
+            nameBox.Text = bo.Name;
+            matchupBox.Text = bo.MetaDatas["matchup"];
+            authorBox.Text = bo.MetaDatas["author"];
+            boCommentBox.Text = bo.MetaDatas["description"];
+            typeBox.Text = bo.MetaDatas["type"];
+            actionsBOPreview.Items.Clear();
+
+            foreach (var action in bo.ListOfAction)
+            {
+                actionsBOPreview.Items.Add(action);
+            }
+
+        }
+
         private void BackMenu(object sender, RoutedEventArgs e)
         {
             Switcher.SwitchPage(new MainMenu());

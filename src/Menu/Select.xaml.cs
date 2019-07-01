@@ -51,6 +51,11 @@ namespace Starcraft_BO_helper
             Switcher.SwitchPage(new PlayMenu(GetSelectedBO()));
         }
 
+        private void modifyButtonClick(object sender, RoutedEventArgs e)
+        {
+            Switcher.SwitchPage(new BuildOrderMenu(GetSelectedBO()));
+        }
+
         private void DeleteSelected(object sender, RoutedEventArgs e)
         {
             BuildOrder selectedItem = GetSelectedBO();
@@ -111,11 +116,6 @@ namespace Starcraft_BO_helper
             {
                 selectedBOPreview.Items.Add(action.ToString());
             }
-        }
-
-        private void modifyButtonClick(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void CopyClipboardClic(object sender, RoutedEventArgs e)
