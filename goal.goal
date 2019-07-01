@@ -5,15 +5,8 @@ explications  / page get started
 langues
 Overlay ingame starcraft
 
-themes de couleurs changeables:
-zerg / protoss / terran / light / dark
-
 Importation des replay et des bo (voir lib)
 
 système de bo favori
 
-buildOrderMenu:
-	-Import buttons
-
-	-modif selected action
-	-auto indent en fonction du temps
+animation copy to clipboard Select.xaml
