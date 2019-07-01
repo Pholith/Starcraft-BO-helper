@@ -16,8 +16,8 @@
             </StackPanel>
             <StackPanel x:Name="userInteraction" Height="469" VerticalAlignment="Top" Width="304" DockPanel.Dock="Right" Margin="20,0,0,-22">
                 <StackPanel x:Name="importButtons" Height="24" Orientation="Horizontal" Margin="0,0,0,10">
-                    <Button x:Name="importFileButton" Content="Import from file" VerticalContentAlignment="Center" Width="135"/>
-                    <Button x:Name="importClipboardButton" Content="Import from clipboard" Width="135" HorizontalAlignment="Right" Margin="33.6,0,0,0"/>
+                    <Button x:Name="importFileButton" Content="Import from file" VerticalContentAlignment="Center" Width="135" Click="ImportFileClick"/>
+                    <Button x:Name="importClipboardButton" Content="Import from clipboard" Width="135" HorizontalAlignment="Right" Margin="33.6,0,0,0" Click="importClipboardClick"/>
                 </StackPanel>
                 <GroupBox x:Name="Meta_data" Header="Meta data" Height="228" Margin="0,0,0,17" BorderBrush="White">
                     <StackPanel Margin="10,10,10,9.9">

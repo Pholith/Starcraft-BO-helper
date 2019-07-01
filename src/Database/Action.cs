@@ -69,7 +69,6 @@ namespace Starcraft_BO_helper
                 return null;
             }
             /// Split lines like "0:49 Assimilator - commentary" or "11 0:26 Drone x2"
-            string[] splited = new string[4];
             Match match = regexActionParser.Match(line);
 
             TimeSpan time = TimeSpan.ParseExact(PreFormatTime(match.Groups[2].ToString()), "mm\\:ss", CultureInfo.InvariantCulture);
@@ -131,6 +130,14 @@ namespace Starcraft_BO_helper
             TimeSpan time = TimeSpan.ParseExact(Action.PreFormatTime(timer), "mm\\:ss", CultureInfo.InvariantCulture);
             Action action = new Action(time, step, comment);
             return action;
+        }
+
+        public int CompareTime
+        {
+            get
+            {
+                return (int) time.TotalMilliseconds;
+            }
         }
     }
 }

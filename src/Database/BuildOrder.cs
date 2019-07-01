@@ -12,7 +12,8 @@ namespace Starcraft_BO_helper
     {
 
         public string Name { get; private set; }
-        private readonly Dictionary<string, string> metaDatas;
+        public Dictionary<string, string> MetaDatas { get; }
+
         private readonly List<Action> listOfAction;
         internal List<Action> ListOfAction
         {
@@ -28,16 +29,17 @@ namespace Starcraft_BO_helper
                 return listOfAction;
             }
         }
+
         internal List<string> MetaDataToString
                 {
             get
             {
                 List<string> metas = new List<string>
                 {
-                    string.Concat("Race: ", Race.TotalName(metaDatas["race"])),
-                    string.Concat("Matchup: ", metaDatas["matchup"]),
-                    string.Concat("Type: ", metaDatas["type"]),
-                    string.Concat("Description: ", metaDatas["description"]),
+                    string.Concat("Race: ", Race.TotalName(MetaDatas["race"])),
+                    string.Concat("Matchup: ", MetaDatas["matchup"]),
+                    string.Concat("Type: ", MetaDatas["type"]),
+                    string.Concat("Description: ", MetaDatas["description"]),
                     ""
                 };
                 return metas;
@@ -49,7 +51,7 @@ namespace Starcraft_BO_helper
 
 
         // A BuildOrder represent a sequence of action at a exact time
-        private BuildOrder(string name, List<Action> listOfAction, Dictionary<string, string> metaDatas)
+        private BuildOrder(string name, IEnumerable<Action> listOfAction, Dictionary<string, string> metaDatas)
         {
             if (metaDatas == null || string.IsNullOrWhiteSpace(name) || listOfAction == null)
             {
@@ -60,7 +62,7 @@ namespace Starcraft_BO_helper
             {
                 if (!metaDatas.ContainsKey(item))
                 {
-                    throw new ArgumentException(item + "data is required to create a build order");
+                    throw new ArgumentException(item + " data is required to create a build order");
                 }
             }
             // Fill empty datas if not given in the constructor
@@ -76,22 +78,20 @@ namespace Starcraft_BO_helper
             }
 
             // Throw ArgumentException if race string is not valide
-            string[] splitedMatchup = Regex.Split(metaDatas["matchup"], @"[^\S\r\n]*([ZTP])V[ZTPX][^\S\r\n]*", RegexOptions.IgnoreCase);
-            if (splitedMatchup.Count() < 2)
-            {
-                throw new ArgumentException("Can't Parse the BO. Matchup field can't be empty.");
-            }
-            if (!Race.Races.Contains(splitedMatchup[1].ToLower()))
-            {
-                throw new ArgumentException("Can't Parse the BO. Don't reconnizing the race.");
-            }
-            metaDatas.Add("race", splitedMatchup[1]);
+            Regex matchupParser = new Regex(@"[^\S\r\n]*([ZTP])V[ZTPX][^\S\r\n]*", RegexOptions.IgnoreCase);
+            Match match = matchupParser.Match(metaDatas["matchup"]);
 
-            this.metaDatas = metaDatas;
+            if (!match.Groups[1].Success)
+            {
+                throw new ArgumentException("Matchup field must be in format \"PvX\",\"ZvT\"...");
+            }
+            metaDatas.Add("race", match.Groups[1].ToString());
+
+            this.MetaDatas = metaDatas;
 
             Name = name.ClearWhiteSpace();
 
-            this.listOfAction = listOfAction;
+            this.listOfAction = (List<Action>) listOfAction;
         }
 
         // Transform a local path into a True local Path
@@ -124,7 +124,14 @@ namespace Starcraft_BO_helper
 
             foreach (string file in Directory.EnumerateFiles(DirectoryPath(), "*.bo"))
             {
-                set.Add(ReadBO(file));
+                try
+                {
+                    set.Add(ReadBO(file));
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Error in bo reading: "+ file);
+                }
             }
             return set;
         }
@@ -132,7 +139,7 @@ namespace Starcraft_BO_helper
         // Remove a BO from the file system
         internal static void DeleteBO(BuildOrder selectedItem)
         {
-            string directory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "\\saves_bo\\";
+            string directory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + folderName;
             string path = string.Concat(directory, selectedItem.ToPath());
 
             if (!File.Exists(path))
@@ -144,82 +151,67 @@ namespace Starcraft_BO_helper
 
         // create a object BO from it string format
         // Return null if bad format
-        public static BuildOrder CreateBO(string boStr, string name)
+        public static BuildOrder CreateBOFromString(string boStr, string name ="")
         {
-            BuildOrder bo;
-            try
+            string[] lines = Regex.Split(boStr, "(?:\r\n)");
+
+            bool actionLines = false;
+            Dictionary<string, string> metaData = new Dictionary<string, string>();
+            foreach (var item in allowedDatas)
             {
-                string[] lines = Regex.Split(boStr, "(?:\r\n)");
+                metaData.Add(item, "");
+            }
 
-                bool actionLines = false;
-                Dictionary<string, string> metaData = new Dictionary<string, string>
+            List<Action> actionList = new List<Action>();
+
+            foreach (var line in lines)
+            {
+                // Match these tags without a specific order
+                var splitedLine = Regex.Split(line, @"^(?=.*(Name|Type|Description|Matchup|Author).*\:(.*))(?:.*|\r)", RegexOptions.IgnoreCase);
+
+                // Check if the line is a action line
+                if (Action.regexActionParser.IsMatch(line))
                 {
-                    { "name", name },
-                    { "type", "" },
-                    { "description", "" },
-                    { "matchup", "" }
-                };
-                List<Action> actionList = new List<Action>();
-
-                foreach (var line in lines)
-                {
-                    // Match these tags without a specific order
-                    var splitedLine = Regex.Split(line, @"^(?=.*(Name|Type|Description|Matchup|Author)\:(.*))(?:.*|\r)", RegexOptions.IgnoreCase);
-
-                    // Check if the line is a action line
-                    if (Action.regexActionParser.IsMatch(line))
-                    {
-                        actionLines = true;
-                    }
+                    actionLines = true;
+                }
                     
-                    if (!actionLines)
+                if (!actionLines)
+                {
+                    if (splitedLine.Count() > 1)
                     {
-                        if (splitedLine.Count() > 1)
+                        var meta = splitedLine[1].ToLower();
+                        if (meta == "name")
                         {
-                            var meta = splitedLine[1].ToLower();
-                            if (metaData.Keys.Contains(meta))
-                            {
-                                metaData[meta] = splitedLine[2];
-                            }
-
+                            name = splitedLine[2];
                         }
-                    }
-                    else
-                    {
-                        var action = Action.ReadActionLine(line);
-                        if (action != null)
+                        else if (metaData.Keys.Contains(meta))
                         {
-                            actionList.Add(action);
-                        };
+                            metaData[meta] = splitedLine[2];
+                        }
+
                     }
                 }
-                bo = new BuildOrder(metaData["name"], actionList, metaData);
+                else
+                {
+                    var action = Action.ReadActionLine(line);
+                    if (action != null)
+                    {
+                        actionList.Add(action);
+                    };
+                }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error during creation of BO. " + e.ToString());
-                return null;
-            }
+            BuildOrder bo = new BuildOrder(name, actionList, metaData);
             return bo;
         }
 
         //Create a custom BO from the BuildOrderMenu
-        public static void CreateAndSaveBO(string name, string type, string description, string matchup, List<Action> actionList)
+        public static void CreateAndSaveBO(string name, IEnumerable<Action> actionList, Dictionary<string, string> metaDatas)
         {
-            Dictionary<string, string> metaData = new Dictionary<string, string>
-                {
-                    { "name", name },
-                    { "type", type },
-                    { "description", description },
-                    { "matchup", matchup }
-                };
-            BuildOrder bo;
-            bo = new BuildOrder(name, actionList, metaData);
-
+            BuildOrder bo = new BuildOrder(name, actionList, metaDatas);
             SaveBO(bo);
         }
-            // Read a BO file
-            public static BuildOrder ReadBO(string pathSrc)
+        // Read a BO file
+        public static BuildOrder ReadBO(string pathSrc)
         {
             if (!File.Exists(pathSrc))
             {
@@ -229,7 +221,7 @@ namespace Starcraft_BO_helper
             string str = File.ReadAllText(pathSrc);
             string name = Path.GetFileNameWithoutExtension(pathSrc);
 
-            return CreateBO(str, name);
+            return CreateBOFromString(str, name);
         }
 
         // Save a BO file
@@ -247,7 +239,7 @@ namespace Starcraft_BO_helper
         {
             StringBuilder builder = new StringBuilder();
             builder.Append("Name : " + Name).AppendLine();
-            foreach (var item in metaDatas)
+            foreach (var item in MetaDatas)
             {
                 builder.Append(item.Key + ": " + item.Value).AppendLine();
             }
@@ -262,23 +254,23 @@ namespace Starcraft_BO_helper
         // Return true if the BuildOrder is of the specified race
         public bool IsTerran()
         {
-            return metaDatas["race"].ToLower() == Race.Terran;
+            return MetaDatas["race"].ToLower() == Race.Terran;
         }
 
         public bool IsZerg()
         {
-            return metaDatas["race"].ToLower() == Race.Zerg;
+            return MetaDatas["race"].ToLower() == Race.Zerg;
         }
 
         public bool IsProtoss()
         {
-            return metaDatas["race"].ToLower() == Race.Protoss;
+            return MetaDatas["race"].ToLower() == Race.Protoss;
         }
 
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();
-            builder.Append(metaDatas["race"]).Append(": ");
+            builder.Append(MetaDatas["race"]).Append(": ");
             builder.Append(Name);
 
             return builder.ToString();

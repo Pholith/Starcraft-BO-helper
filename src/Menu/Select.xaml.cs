@@ -48,12 +48,12 @@ namespace Starcraft_BO_helper
 
         private void PlaySelected(object sender, RoutedEventArgs e)
         {
-            Switcher.SwitchPage(new PlayMenu((BuildOrder) GetSelectedList().SelectedItem));
+            Switcher.SwitchPage(new PlayMenu(GetSelectedBO()));
         }
 
         private void DeleteSelected(object sender, RoutedEventArgs e)
         {
-            BuildOrder selectedItem = (BuildOrder) GetSelectedList().SelectedItem;
+            BuildOrder selectedItem = GetSelectedBO();
             if (selectedItem != null)
             {
                 BuildOrder.DeleteBO(selectedItem);
@@ -66,7 +66,12 @@ namespace Starcraft_BO_helper
                 selectedBOPreview.Items.Clear();
             }
         }
-
+        // Return the selected Buildorder From the selected list
+        private BuildOrder GetSelectedBO()
+        {
+            return GetSelectedList().SelectedItem as BuildOrder;
+        }
+        // Return the selected list in the tab control
         private ListBox GetSelectedList()
         {
             return (ListBox) tabControl.SelectedContent;
@@ -79,7 +84,7 @@ namespace Starcraft_BO_helper
 
         private void UpdateSelection(object sender, SelectionChangedEventArgs e)
         {
-            if (GetSelectedList().SelectedItem == null)
+            if (GetSelectedBO() == null)
             {
                 playButton.IsEnabled = false;
                 deleteButton.IsEnabled = false;
@@ -95,7 +100,7 @@ namespace Starcraft_BO_helper
             // BO preview
             selectedBOPreview.Items.Clear();
            
-            BuildOrder preview = (BuildOrder) GetSelectedList().SelectedItem;
+            BuildOrder preview = GetSelectedBO();
             boNamePreview.Content = preview.Name;
             foreach (var meta in preview.MetaDataToString)
             {
@@ -108,14 +113,22 @@ namespace Starcraft_BO_helper
             }
         }
 
-        private void SelectedBOPreview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void modifyButtonClick(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CopyClipboardClic(object sender, RoutedEventArgs e)
         {
+            BuildOrder selectedBo = GetSelectedBO();
+            if (selectedBo == null)
+            {
+                // TODO Write a error message on a label
+                return;
+            }
 
+            Clipboard.SetText(selectedBo.ToFormat());
+            // TODO confirmation message in a label
         }
     }
 }
