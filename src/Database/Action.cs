@@ -26,11 +26,31 @@ namespace Starcraft_BO_helper
         public static readonly Regex regexActionParser = new Regex(@"^(?:[^\S\r\n]*(\d{1,3}){0,1}[^\S\r\n]+){0,1}(\d{1,2}:\d{1,2})\s*([^-\n\r]*)(?:-\s*(.*)){0,1}");
 
         private readonly TimeSpan time;
+        public TimeSpan Time
+        {
+            get
+            {
+                return time;
+            }
+        }
+
         private readonly String action;
-        public String ActionName() { return action; }
-
+        public String _Action
+        {
+            get
+            {
+                return action;
+            }
+        }
+        
         private readonly String comment;
-
+        public String Comment
+        {
+            get
+            {
+                return comment;
+            }
+        }
 
         public Action(TimeSpan time, string action, string comment)
         {
