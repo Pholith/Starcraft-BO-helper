@@ -26,19 +26,7 @@ namespace Starcraft_BO_helper
         public BuildOrderMenu(BuildOrder bo)
         {
             InitializeComponent();
-
-            nameBox.Text = bo.Name;
-            matchupBox.Text = bo.MetaDatas["matchup"];
-            authorBox.Text = bo.MetaDatas["author"];
-            boCommentBox.Text = bo.MetaDatas["description"];
-            typeBox.Text = bo.MetaDatas["type"];
-            actionsBOPreview.Items.Clear();
-
-            foreach (var action in bo.ListOfAction)
-            {
-                actionsBOPreview.Items.Add(action);
-            }
-
+            FillBoxes(bo);
         }
 
         private void BackMenu(object sender, RoutedEventArgs e)
@@ -165,6 +153,7 @@ namespace Starcraft_BO_helper
                 feedbackTextBlock.Text = "There is no build order in Clipboard";
             }
         }
+
         // Fill boxes with the bo informations
         private void FillBoxes(BuildOrder bo)
         {
