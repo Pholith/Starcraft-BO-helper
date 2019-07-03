@@ -16,12 +16,14 @@ namespace Starcraft_BO_helper
             InitializeComponent();
 
             Db.Load();
-            
+            var udp = new UDP_Controller();
+
             //page switcher and initial page   
             Switcher.window = this;
             Switcher.SwitchPage(new MainMenu());
 
             this.Topmost = true; // Always Bring the window on front
+
         }
 
 

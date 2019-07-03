@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Starcraft-BO-helper", "Starcraft-BO-helper.csproj", "{DBE3ED84-9842-4CB8-848E-304C816B0A99}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Starcraft_Logger", "..\Starcraft_Logger\Starcraft_Logger.njsproj", "{D3D0E9DC-82CF-4AA5-B03F-435887FF320F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{DBE3ED84-9842-4CB8-848E-304C816B0A99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBE3ED84-9842-4CB8-848E-304C816B0A99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBE3ED84-9842-4CB8-848E-304C816B0A99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3D0E9DC-82CF-4AA5-B03F-435887FF320F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3D0E9DC-82CF-4AA5-B03F-435887FF320F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3D0E9DC-82CF-4AA5-B03F-435887FF320F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3D0E9DC-82CF-4AA5-B03F-435887FF320F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
