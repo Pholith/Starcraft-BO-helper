@@ -162,8 +162,7 @@ namespace Starcraft_BO_helper
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                feedbackTextBlock.Text = "Clipboard text is not a build order";
+                feedbackTextBlock.Text = "There is no build order in Clipboard";
             }
         }
         // Fill boxes with the bo informations
