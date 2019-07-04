@@ -53,6 +53,7 @@ namespace Starcraft_BO_helper
         // A BuildOrder represent a sequence of action at a exact time
         private BuildOrder(string name, IEnumerable<Action> listOfAction, Dictionary<string, string> metaDatas)
         {
+
             if (metaDatas == null || string.IsNullOrWhiteSpace(name) || listOfAction == null)
             {
                 throw new Exception("Fields with an * must be filled");
@@ -91,7 +92,7 @@ namespace Starcraft_BO_helper
 
             Name = name.ClearWhiteSpace();
 
-            this.listOfAction = (List<Action>) listOfAction;
+            this.listOfAction = listOfAction.ToList();
         }
 
         // Transform a local path into a True local Path
@@ -202,6 +203,46 @@ namespace Starcraft_BO_helper
             }
             BuildOrder bo = new BuildOrder(name, actionList, metaData);
             return bo;
+        }
+
+        // create a object BO from a SALT 
+        public static BuildOrder CreateBOFromSALT(SALT salt)
+        {
+            // some bo have their informations in the title. This try to extract them
+            string titleToParse = salt.Title;
+            Dictionary<string, string> metaDatas = salt.MetaDatas;
+
+            // Matchup search
+            Regex matchupFinder = new Regex(@".*([ZTP]V[ZTPX]).*", RegexOptions.IgnoreCase);
+            Match matchResult = matchupFinder.Match(titleToParse);
+
+            if (matchResult.Success)
+            {
+                metaDatas.Add("matchup", matchResult.Groups[1].ToString());
+            }
+            else
+            {
+                metaDatas.Add("matchup", "PvX"); // huuum not sure of that
+                //throw new FormatException("Matchup not found in this SALT");
+            }
+            titleToParse = matchupFinder.Replace(titleToParse, "");
+
+
+            // Type search
+            Regex typeFinder = new Regex(@".*(Economic|All-in|All in|Cheese|Co-op|Timing Attack).*", RegexOptions.IgnoreCase);
+            Match typeMatchResult = typeFinder.Match(titleToParse);
+
+            if (typeMatchResult.Success)
+            {
+                metaDatas.Add("type", typeMatchResult.Groups[1].ToString());
+            }
+            else
+            {
+                metaDatas.Add("type", "");
+            }
+            titleToParse = typeFinder.Replace(titleToParse, "");
+
+            return new BuildOrder(titleToParse, salt.Actions, metaDatas);
         }
 
         //Create a custom BO from the BuildOrderMenu

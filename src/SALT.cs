@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Starcraft_BO_helper
 {
@@ -22,17 +22,25 @@ namespace Starcraft_BO_helper
 
         private static Dictionary<char, int> m_mapping;
 
+        // old parameters
         private int m_version;
-        private string m_build;
+        //
+
         private List<Action> listOfAction;
-        private int m_minimumSupply;
 
 
-        public string Description { get; private set; }
-        public string Author { get; private set; }
+        private Dictionary<string, string> metaDatas;
+        public Dictionary<string, string> MetaDatas
+        {
+            get
+            {
+                return metaDatas;
+            }
+        }
+
         public string Title { get; private set; }
-
-        public ReadOnlyCollection<Action> Steps
+        
+        public ReadOnlyCollection<Action> Actions
         {
             get
             {
@@ -51,6 +59,7 @@ namespace Starcraft_BO_helper
             {
                 m_mapping[chars[i]] = i;
             }
+
         }
 
 
@@ -286,18 +295,22 @@ namespace Starcraft_BO_helper
             return "Unknown";
         }
 
+        // Regex to test if a string is a build order SALT encoded
+        public static readonly Regex saltMatch = new Regex(@"(?:$\d){0,1}(?:.*\|){3}~(?:.....){0,}");
+
 
         // Constructor of SALT
         public SALT(string build)
         {
-            m_build = build;
+
             StringReader reader = new StringReader(build);
             StringBuilder meta = new StringBuilder();
             m_version = m_mapping[(char)reader.Read()];
             listOfAction = new List<Action>();
 
-            m_minimumSupply = 5;
+            metaDatas = new Dictionary<string, string>();
 
+            
             // Builds look like this:
             // [version]title|Author|description|~[supply][minutes][seconds][type][item id]...
 
@@ -315,8 +328,10 @@ namespace Starcraft_BO_helper
             }
 
             Title = metaItems[0];
-            Author = metaItems[1];
-            Description = metaItems[2];
+            Console.WriteLine(Title);
+            metaDatas.Add("author", metaItems[1]);
+            metaDatas.Add("description", metaItems[2]);
+
 
             int read;
             char[] buffer = new char[5];
@@ -327,11 +342,8 @@ namespace Starcraft_BO_helper
             {
                 // Supply of 0 is a blank
                 int supply = m_mapping[buffer[0]];
-                if (supply > 0)
-                {
-                    supply = supply + m_minimumSupply - 1;
-                }
 
+                // Getting the action string from code
                 string actionString;
                 int code = m_mapping[buffer[4]];
 
@@ -353,6 +365,7 @@ namespace Starcraft_BO_helper
                         actionString = "Unknown";
                         break;
                 }
+
                 //var step = new BuildStep(supply, m_mapping[buffer[1]], m_mapping[buffer[2]], (BuildStep.StepType)m_mapping[buffer[3]], m_mapping[buffer[4]]);
 
                 var action = new Action(new TimeSpan(0, 0, m_mapping[buffer[1]], m_mapping[buffer[2]]), actionString, "");

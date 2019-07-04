@@ -64,7 +64,6 @@ namespace Starcraft_BO_helper
                 feedbackTextBlock.Text = ex.Message;
             }
 
-
         }
 
         private Action GetSelectedAction()
@@ -139,12 +138,23 @@ namespace Starcraft_BO_helper
             }
         }
 
+        // Import some types of bo using clipboard
         private void importClipboardClick(object sender, RoutedEventArgs e)
         {
             try
             {
-                // TODO Salt encoding here
-                BuildOrder bo = BuildOrder.CreateBOFromString(Clipboard.GetText());
+                string clipBoardText = Clipboard.GetText();
+                BuildOrder bo;
+
+                if (SALT.saltMatch.IsMatch(clipBoardText))
+                {
+                    bo = BuildOrder.CreateBOFromSALT(new SALT(clipBoardText));
+
+                }
+                else
+                {
+                    bo = BuildOrder.CreateBOFromString(clipBoardText);
+                }
                 FillBoxes(bo);
                 feedbackTextBlock.Text = "Sucessfully import bo";
             }
@@ -170,6 +180,7 @@ namespace Starcraft_BO_helper
             }
         }
 
+        // Import a .bo file 
         private void ImportFileClick(object sender, RoutedEventArgs e)
         {
             try
