@@ -126,8 +126,8 @@ namespace Starcraft_BO_helper
                     break;
                 case Light:
                     colorList.Add((Color) ColorConverter.ConvertFromString("#000000"));
-                    colorList.Add((Color) ColorConverter.ConvertFromString("#CDCDCD"));
-                    colorList.Add((Color) ColorConverter.ConvertFromString("#B4B4B4"));
+                    colorList.Add((Color) ColorConverter.ConvertFromString("#F7F7F7"));
+                    colorList.Add((Color) ColorConverter.ConvertFromString("#CFCFCF"));
                     colorList.Add((Color) ColorConverter.ConvertFromString("#9C9B9B"));
                     break;
                 case Dark:

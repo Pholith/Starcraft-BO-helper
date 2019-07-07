@@ -5,6 +5,8 @@ using System.Windows.Media;
 using WpfTextBox = System.Windows.Controls.TextBox;
 
 namespace Starcraft_BO_helper
+
+    // Code forked from somewhere
     {
     public class TextBox : WpfTextBox
         {

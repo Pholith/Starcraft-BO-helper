@@ -19,5 +19,4 @@ namespace Starcraft_BO_helper
             window.Navigate(newPage);
         }
     }
-
 }
